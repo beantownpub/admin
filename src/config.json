@@ -1,0 +1,101 @@
+{
+    "beantown": {
+        "static_url": "https://static.dev.beantownpub.com",
+        "urls": {
+            "googleApi": "https://maps.googleapis.com/maps/api/",
+            "contactApi": "https://contact-api.jalgraves.com/v1/contact/beantown",
+            "merchApi": "https://merch-api.beantownpub.com",
+            "products": "https://merch-api.beantownpub.com/v1/merch/products",
+            "cart": "https://merch-api.beantownpub.com/v1/merch/cart",
+            "cartItems": "https://merch-api.beantownpub.com/v1/merch/cart",
+            "deleteItem": "https://merch-api.beantownpub.com/v1/merch/cart/update/",
+            "updateCart": "https://merch-api.beantownpub.com/v1/merch/cart/update/",
+            "static": "https://static.dev.beantownpub.com",
+            "facebook": "https://www.facebook.com/BeantownPubMA/",
+            "instagram": "https://www.instagram.com/explore/locations/392955632/beantown-pub/?hl=en",
+            "twitter": "https://twitter.com/BeantownPub"
+        },
+        "pages": {
+            "index": {
+                "name": "index",
+                "icon": "faBeer",
+                "text": "Home",
+                "title": "Beantown Pub",
+                "keywords": "",
+                "description": "",
+                "menu_list": true,
+                "top_menu": false
+            },
+            "dashboard": {
+                "name": "dashboard",
+                "icon": "faInfo",
+                "text": "Dashboard",
+                "title": "Beantown Admin",
+                "keywords": "",
+                "description": "Beantown admin",
+                "menu_list": true,
+                "top_menu": true
+            },
+            "food": {
+                "name": "food",
+                "icon": "faUtensils",
+                "text": "Food",
+                "title": "Beantown Menu",
+                "keywords": "",
+                "description": "Beantown Pub menu, serving food late night",
+                "menu_list": true,
+                "top_menu": true
+            },
+            "private parties": {
+                "name": "parties",
+                "icon": "faCalendar",
+                "text": "Parties",
+                "title": "Parties",
+                "keywords": "",
+                "description": "Beantown Pub private parties",
+                "menu_list": true,
+                "top_menu": true
+            },
+            "merch": {
+                "name": "merch",
+                "icon": "faTshirt",
+                "text": "Merch",
+                "title": "Merch",
+                "keywords": "beantown pub, tshirts, sweatshirts, hats, glasses, souvenirs",
+                "description": "Beantown Pub Merch",
+                "menu_list": true,
+                "top_menu": true
+            },
+            "facebook": {
+                "name": "https://www.facebook.com/BeantownPubMA/",
+                "icon": "faFacebook",
+                "text": "Facebook",
+                "title": "",
+                "keywords": "",
+                "description": "",
+                "menu_list": false,
+                "top_menu": false
+            },
+            "instagram": {
+                "name": "https://www.instagram.com/explore/tags/beantownpub/?hl=en",
+                "icon": "faInstagram",
+                "text": "Instagram",
+                "title": "",
+                "keywords": "",
+                "description": "",
+                "menu_list": false,
+                "top_menu": false
+            },
+            "twitter": {
+                "name": "https://twitter.com/BeantownPub",
+                "icon": "faTwitter",
+                "text": "Twitter",
+                "title": "",
+                "keywords": "",
+                "description": "",
+                "menu_list": false,
+                "top_menu": false
+            }
+        }
+    }
+}
