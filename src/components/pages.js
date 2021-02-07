@@ -1,6 +1,7 @@
 import React from 'react'
 import { InfoSection } from './common'
 import { MerchDash } from './merchMgmtUi'
+import { FoodDash } from './food/foodMgmtUi'
 // import { LinkButton } from './common'
 
 
@@ -28,12 +29,13 @@ export const PartiesDash = () => {
     )
 }
 
-export const FoodDash = () => {
+export const FoodMenuDash = () => {
     return (
         <div>
             <InfoSection bgColor='#fcba03' marginTop='10rem'>
                 <section>
                     <h1>Beantown Food Menu</h1>
+                    <FoodDash/>
                 </section>
             </InfoSection>
         </div>

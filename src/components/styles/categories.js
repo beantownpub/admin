@@ -66,7 +66,7 @@ export const StyledCategoriesContainer = styled.div`
     }
 `
 
-export const StyledProductsContainer = styled.div`
+export const StyledItemsContainer = styled.div`
     margin: 1rem auto;
     display: flex;
     flex-flow: column wrap;

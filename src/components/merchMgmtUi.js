@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import {
     StyledCategoryCard,
     StyledCategoriesContainer,
-    StyledProductsContainer } from './styles/categories'
+    StyledItemsContainer } from './styles/categories'
 import { CategoryDeleteButton, } from './merch/buttons'
 import { NewCategoryForm } from './merch/forms/addCategory'
 import { NewProductForm } from './merch/forms/addProduct'
@@ -51,7 +51,6 @@ export const MerchDash = () => {
             key={category.id.toString()}
             name={category.name}
             isActive={category.is_active}
-            hasSizes={category.has_sizes}
             products={category.products}
             runFunction={updateCategories}
             showForm={form}
@@ -88,11 +87,11 @@ const CategoryCard = (props) => {
                 />
             )
             return (
-                <StyledProductsContainer>
+                <StyledItemsContainer>
                     <h3>PRODUCTS</h3>
                     <NewProductForm showForm={props.showForm} runFunction={props.runFunction} />
                     {products}
-                </StyledProductsContainer>
+                </StyledItemsContainer>
             )
         }
     }

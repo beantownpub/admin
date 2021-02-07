@@ -6,6 +6,7 @@ version ?= $(shell jq .version package.json)
 port ?= 3033
 
 merch_host ?= $(shell docker inspect merch_api | jq .[0].NetworkSettings.Networks.bridge.IPAddress || echo "no-container")
+food_host ?= $(shell docker inspect menu_api | jq .[0].NetworkSettings.Networks.bridge.IPAddress || echo "no-container")
 auth_host ?= $(shell docker inspect auth_api | jq .[0].NetworkSettings.Networks.bridge.IPAddress || echo "no-container")
 
 sass:
@@ -38,10 +39,9 @@ start:
 			-v "${PWD}/dist/public/css:/app/dist/public/css" \
 			-v "${PWD}/dist/public/images:/app/dist/public/images" \
 			-e MERCH_API_HOST=$(merch_host) \
+			-e FOOD_API_HOST=$(food_host) \
 			-e AUTH_API_HOST=$(auth_host) \
-			-e SQUARE_LOCATION_ID=${SQUARE_LOCATION_ID} \
-			-e SQAURE_ACCESS_TOKEN=${SQAURE_ACCESS_TOKEN} \
-			-e API_USER=jalbot \
+			-e API_USER=${API_USER} \
 			-e API_PW=${API_PW} \
 			$(image_name):$(version)
 

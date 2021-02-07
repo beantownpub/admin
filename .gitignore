@@ -107,3 +107,4 @@ typings/
 credentials.yaml
 
 .scrap/
+.k8s/

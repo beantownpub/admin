@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { LoginForm } from './components/loginForm'
-import { MainDash, PartiesDash, FoodDash, Merch } from './components/pages'
+import { MainDash, PartiesDash, FoodMenuDash, Merch } from './components/pages'
 import { Footer } from './components/common'
 import { TopMenuBar, LinkList, TopNavBar, linkProps } from './components/TopBar'
 require('dotenv').config()
@@ -72,7 +72,7 @@ if (document.getElementById('partiesDash')) {
 
 if (document.getElementById('foodDash')) {
     ReactDOM.render(
-        <FoodDash/>,
+        <FoodMenuDash/>,
         document.getElementById('foodDash')
     )
 }

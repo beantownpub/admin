@@ -1,5 +1,4 @@
 import React from 'react'
-import { SocialNav } from './social'
 import {
     StyledAnchor,
     StyledInfo,
@@ -65,7 +64,6 @@ export const Footer = () => {
                 <h3>100 Tremont St. Boston MA</h3>
                 <h2>Call: 617-426-0111</h2>
                 <h2>Stay Connected</h2>
-                <SocialNav/>
                 <h2>{'© ' + year} Beantown Pub</h2>
             </footer>
         </StyledFooter>
