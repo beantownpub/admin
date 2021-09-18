@@ -2,9 +2,9 @@ import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import {
     ViewButton,
-    ShowProductCreateFormButton,
+    ShowItemCreateFormButton,
     HideCategoryCreateFormButton } from '../buttons'
-import { StyledEditForm, StyledLogin } from '../styles/formStyles'
+import { StyledEditForm, StyledCreateComplete } from '../styles/formStyles'
 
 
 // const config = require('./merchConfig.json')
@@ -21,7 +21,7 @@ const reqHeaders = {
 export const NewItemForm = (props) => {
     const [state, setState] = useState({
         showForm: false,
-        categoryCreated: false,
+        itemCreated: false,
         failedCreate: false
     })
     const { handleSubmit, register, errors, reset } = useForm()
@@ -41,7 +41,7 @@ export const NewItemForm = (props) => {
     const successCreate = () => {
         setState({
             showForm: false,
-            categoryCreated: true
+            itemCreated: true
         })
         props.runFunction()
     }
@@ -54,13 +54,15 @@ export const NewItemForm = (props) => {
     }
 
     const onSubmit = values => {
-        fetch('/categories', {
+        fetch(`${props.api}/items`, {
             method: 'POST',
             headers: reqHeaders,
             body: JSON.stringify({
-                name: values.categoryName,
-                has_sizes: values.hasSizes,
-                is_active: values.isActive
+                name: values.itemName,
+                description: values.description,
+                is_active: values.isActive,
+                price: values.itemPrice,
+                category: props.category
             })
         })
         .catch(err => {
@@ -89,12 +91,12 @@ export const NewItemForm = (props) => {
 
     return (
         <div>
-            <ShowProductCreateFormButton runFunction={toggleForm} />
+            <ShowItemCreateFormButton runFunction={toggleForm} />
         {state.showForm &&
         <StyledEditForm>
-            <h2>Add Product</h2>
+            <h2>Add Item</h2>
             <form onSubmit={handleSubmit(onSubmit)}>
-                <input name='categoryName' placeholder='Name' ref={register(required)} text="Hello Asshole" />
+                <input name='itemName' placeholder='Name' ref={register(required)} text="Hello" />
                 <label htmlFor="isActive">Active?</label>
                     <input
                         className="check"
@@ -104,6 +106,15 @@ export const NewItemForm = (props) => {
                         defaultChecked={true}
                         ref={register}
                     />
+                <label htmlFor="isActive">Price</label>
+                <input name='itemPrice' placeholder='0.00' ref={register(required)} text="Hello" />
+                <label htmlFor="description">Description</label>
+                <textarea
+                    name='description'
+                    rows='6'
+                    columns='50'
+                    ref={register({ required: 'Required'})}
+                ></textarea>
                 <ViewButton borderColor='#e2e2e2' text='Create' />
                 <HideCategoryCreateFormButton runFunction={hideForm} />
             </form>
@@ -113,11 +124,10 @@ export const NewItemForm = (props) => {
         </StyledEditForm>
         }
         <div>
-            {state.categoryCreated &&
-            <StyledLogin>
-            <h2>Category Created</h2>
-            <a href="/dashboard">Proceed To Dashboard</a>
-            </StyledLogin>
+            {state.itemCreated &&
+            <StyledCreateComplete>
+            <h2>Item Created</h2>
+            </StyledCreateComplete>
             }
         </div>
         </div>

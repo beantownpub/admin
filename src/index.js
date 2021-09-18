@@ -4,7 +4,6 @@ import { LoginForm } from './components/loginForm'
 import { MainDash, PartiesDash, FoodMenuDash, Merch } from './components/pages'
 import { Footer } from './components/common'
 import { TopMenuBar, LinkList, TopNavBar, linkProps } from './components/TopBar'
-require('dotenv').config()
 const config = require('./config.json')
 const pages = config.beantown.pages
 const staticURL = config.beantown.static_url

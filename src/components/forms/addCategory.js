@@ -54,12 +54,11 @@ export const NewCategoryForm = (props) => {
     }
 
     const onSubmit = values => {
-        fetch('/categories', {
+        fetch(`${props.api}/categories`, {
             method: 'POST',
             headers: reqHeaders,
             body: JSON.stringify({
                 name: values.categoryName,
-                has_sizes: values.hasSizes,
                 is_active: values.isActive
             })
         })

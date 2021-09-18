@@ -131,3 +131,11 @@ export const StyledEditForm = styled.div`
         flex-flow: row nowrap;
     }
 `
+
+export const StyledCreateComplete = styled.div`
+    width: 100%;
+    h2 {
+        max-width: 25rem;
+        color: green;
+    }
+`

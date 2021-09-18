@@ -92,11 +92,13 @@ export const EditItemForm = (props) => {
             <ShowCategoryEditFormButton runFunction={toggleForm} />
         {state.showForm &&
         <StyledEditForm>
-            <h2 className="editForm">Edit Product</h2>
+            <h2 className="editForm">Edit Item</h2>
             <form onSubmit={handleSubmit(onSubmit)}>
-                <input name='categoryName' defaultValue={props.name} ref={register(required)} />
-                <label htmlFor="hasSizes">Has more than one size?</label>
-                <div className="checkField">
+                <label htmlFor="itemName">Name</label>
+                <input name='itemName' defaultValue={props.name} ref={register(required)} />
+                {props.haSizes &&
+                    <div className="checkField">
+                    <label htmlFor="hasSizes">Has more than one size?</label>
                     <input
                         className="check"
                         type="checkbox"
@@ -105,9 +107,10 @@ export const EditItemForm = (props) => {
                         defaultChecked={props.hasSizes}
                         ref={register}
                     />
-                </div>
-                <label htmlFor="isActive">Active?</label>
+                    </div>
+                }
                 <div className="checkField">
+                <label htmlFor="isActive">Active?</label>
                     <input
                         className="check"
                         type="checkbox"
@@ -117,6 +120,8 @@ export const EditItemForm = (props) => {
                         ref={register}
                     />
                 </div>
+                <label htmlFor="itemPrice">Price</label>
+                <input name='itemPrice' ref={register(required)} defaultValue={props.price} />
                 <label htmlFor="description">Description</label>
                     <textarea
                         name='description'

@@ -11,13 +11,13 @@ import { ItemCard } from './items'
 export const CategoryCard = (props) => {
     const renderItems = () => {
         let items = ''
-        console.log(props.items)
+        console.log('ITEMS: ' + props.items)
         if (props.items) {
             items = props.items.map((item) =>
                 <ItemCard key={item.sku.toString()}
                     sku={item.sku}
                     name={item.name}
-                    isActive={item.isActive}
+                    isActive={item.is_active}
                     description={item.description}
                     price={item.price}
                 />
@@ -25,8 +25,8 @@ export const CategoryCard = (props) => {
         }
         return (
             <StyledItemsContainer>
-                <h3>{props.name}</h3>
-                <NewItemForm showForm={props.showForm} runFunction={props.runFunction} />
+                <h3>ITEMS</h3>
+                <NewItemForm api={props.api} showForm={props.showForm} runFunction={props.runFunction} category={props.name}/>
                 {items}
             </StyledItemsContainer>
         )

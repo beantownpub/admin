@@ -48,11 +48,12 @@ export const FoodDash = () => {
             items={category.items}
             runFunction={updateCategories}
             showForm={form}
+            api="food"
         />);
         return (
             <StyledCategoriesContainer>
                 <h1>Categories</h1>
-                <NewCategoryForm showForm={form} runFunction={updateCategories} />
+                <NewCategoryForm showForm={form} runFunction={updateCategories} api="food" />
                 {cats}
             </StyledCategoriesContainer>
         )

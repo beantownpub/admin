@@ -26,7 +26,7 @@ export const StyledCategoryCard = styled.div`
     }
     .buttonsDisplay {
         display: flex;
-        flex-flow: row nowrap;
+        flex-flow: row wrap;
     }
     h2 {
         padding: .25rem;

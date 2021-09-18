@@ -2,24 +2,28 @@ import React from 'react'
 import MenuIcon, { getIcon } from './icon'
 import { StyledButton, iconStyle } from './styles/buttonStyles'
 
+const COLORS = {
+    black: "#000000"
+}
+
 export const ShowCategoryCreateFormButton = (props) => {
     const handleClick = () => {
         props.runFunction()
     }
     return (
-        <StyledButton>
+        <StyledButton borderColor={COLORS.black}>
             <button onClick={handleClick}>Create New Category</button>
         </StyledButton>
     )
 }
 
-export const ShowProductCreateFormButton = (props) => {
+export const ShowItemCreateFormButton = (props) => {
     const handleClick = () => {
         props.runFunction()
     }
     return (
-        <StyledButton>
-            <button onClick={handleClick}>Add New Product</button>
+        <StyledButton borderColor={COLORS.black}>
+            <button onClick={handleClick}>Add New Item</button>
         </StyledButton>
     )
 }
@@ -29,7 +33,7 @@ export const HideCategoryCreateFormButton = (props) => {
         props.runFunction()
     }
     return (
-        <StyledButton>
+        <StyledButton borderColor={COLORS.black}>
             <button onClick={handleClick}>Cancel</button>
         </StyledButton>
     )
@@ -40,7 +44,7 @@ export const ShowCategoryEditFormButton = (props) => {
         props.runFunction()
     }
     return (
-        <StyledButton>
+        <StyledButton borderColor={COLORS.black}>
             <button onClick={handleClick}>Edit</button>
         </StyledButton>
     )
@@ -61,7 +65,7 @@ export const CategoryEditButton = (props) => {
         props.runFunction()
     }
     return (
-        <StyledButton>
+        <StyledButton borderColor={COLORS.black}>
             <button onClick={handleClick}>Update</button>
         </StyledButton>
     )
@@ -82,7 +86,7 @@ export const CategoryDeleteButton = (props) => {
         props.runFunction()
     }
     return (
-        <StyledButton>
+        <StyledButton borderColor={COLORS.black}>
             <button onClick={handleClick}>Delete</button>
         </StyledButton>
     )
@@ -103,7 +107,7 @@ export const ProductEditButton = (props) => {
         props.runFunction()
     }
     return (
-        <StyledButton>
+        <StyledButton borderColor={COLORS.black}>
             <button onClick={handleClick}>Update</button>
         </StyledButton>
     )
@@ -124,7 +128,7 @@ export const ItemDeleteButton = (props) => {
         props.runFunction()
     }
     return (
-        <StyledButton>
+        <StyledButton borderColor={COLORS.black}>
             <button onClick={handleClick}>Delete</button>
         </StyledButton>
     )
