@@ -1,0 +1,14 @@
+{
+    "colors": {
+        "yellow": "#fcba03",
+        "gray": "#494040",
+        "red": "#c70039",
+        "navBarBlue": "rgba(5,46,102,0.90)",
+        "blue": "#1f6696",
+        "lightGray": "#F3F4F4",
+        "darkGray": "#383838",
+        "cyan": "#3fc5f0",
+        "black": "#000000",
+        "white": "whitesmoke"
+    }
+}

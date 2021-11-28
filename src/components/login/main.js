@@ -1,17 +1,15 @@
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
-import MenuIcon, { getIcon } from './icon'
-import { ViewButton } from './merch/buttons'
-import { StyledLoginForm, StyledLogin } from './merch/styles/formStyles'
+import MenuIcon, { getIcon } from '../content/icon'
+import { SubmitButton } from '../elements/buttons/main'
+import { StyledLoginContainer, StyledLoginForm, StyledLogin } from './styles'
 
 
-// const config = require('./merchConfig.json')
-
-const required = {
+const REQUIRED = {
     required: 'Required'
 }
 
-const reqHeaders = {
+const HEADERS = {
     'Accept': 'application/json',
     'Content-Type': 'application/json'
 }
@@ -25,10 +23,8 @@ export const LoginForm = (props) => {
     })
     const { handleSubmit, register, errors, reset } = useForm()
 
-    const toggleForm = () => {
-        setState({
-            showForm: false
-        })
+    const hideForm = () => {
+        setState({ showForm: false })
     }
 
     const toggleLogin = (user) => {
@@ -50,7 +46,7 @@ export const LoginForm = (props) => {
     const onSubmit = values => {
         fetch('auth', {
             method: 'POST',
-            headers: reqHeaders,
+            headers: HEADERS,
             body: JSON.stringify({
                 username: values.userName,
                 password: values.passWord
@@ -69,7 +65,7 @@ export const LoginForm = (props) => {
         .then(data => {
             console.log('LoginForm Status: ' + data.status)
             if (data.status === 200) {
-                toggleForm()
+                hideForm()
                 toggleLogin(values.userName)
             } else {
                 failedLogin()
@@ -82,7 +78,8 @@ export const LoginForm = (props) => {
     }
 
     return (
-        <div>
+        <StyledLoginContainer aria-labelledby="Login container">
+            <h1>{props.title}</h1>
         {state.showForm &&
         <StyledLoginForm>
             <h2>
@@ -92,11 +89,11 @@ export const LoginForm = (props) => {
                 /> Secure Login
             </h2>
             <form onSubmit={handleSubmit(onSubmit)}>
-                <input name='userName' placeholder='Username' ref={register(required)} />
+                <input name='userName' placeholder='Username' ref={register(REQUIRED)} />
                 <h3>{errors.userName && errors.userName.message}</h3>
-                <input name='passWord' placeholder='Password' type='password' ref={register(required)} />
+                <input name='passWord' placeholder='Password' type='password' ref={register(REQUIRED)} />
                 <h3>{errors.passWord && errors.passWord.message}</h3>
-                <ViewButton borderColor='#e2e2e2' text='Login' />
+                <SubmitButton borderColor='#e2e2e2' buttonText='Login' />
             </form>
             {state.failedLogin &&
                 <h3>Login Failed</h3>
@@ -111,6 +108,6 @@ export const LoginForm = (props) => {
             </StyledLogin>
             }
         </div>
-        </div>
+        </StyledLoginContainer>
     )
 }

@@ -1,7 +1,7 @@
 import React from 'react'
-import { InfoSection } from './common'
-import { MerchDash } from './merchMgmtUi'
-import { FoodDash } from './food/foodMgmtUi'
+import { DashContainer, InfoSection } from './common'
+import { MerchDash } from '../merchMgmtUi'
+import { FoodDash } from '../foodMenu/main.js'
 // import { LinkButton } from './common'
 
 
@@ -11,6 +11,10 @@ export const MainDash = () => {
             <InfoSection bgColor='#fcba03' marginTop='10rem'>
                 <section>
                     <h1>Welcome!</h1>
+                    <ul>
+                    <li><a href="/food">Manage Beantown Food Menu</a></li>
+                    <li><a href="/food">Manage HubPub Food Menu</a></li>
+                    </ul>
                 </section>
             </InfoSection>
         </div>
@@ -32,12 +36,12 @@ export const PartiesDash = () => {
 export const FoodMenuDash = () => {
     return (
         <div>
-            <InfoSection bgColor='#fcba03' marginTop='10rem'>
+            <DashContainer bgColor='#fcba03' marginTop='10rem'>
                 <section>
                     <h1>Beantown Food Menu</h1>
                     <FoodDash/>
                 </section>
-            </InfoSection>
+            </DashContainer>
         </div>
     )
 }

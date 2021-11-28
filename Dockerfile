@@ -1,4 +1,4 @@
-FROM node:14.13.1-buster-slim AS build
+FROM node:14.17.6-buster-slim AS build
 
 RUN apt-get update  && \
     apt-get install -y \
@@ -12,15 +12,16 @@ ARG square_app_id
 ARG node_env
 ENV SQUARE_APP_ID=${square_app_id}
 ENV NODE_ENV=${node_env}
+ENV WEBPACK_CLI_SKIP_IMPORT_LOCAL=true
 
 COPY ./package* /app/
 WORKDIR /app
 RUN npm ci --save-dev
 COPY . ./
-RUN npx webpack --config webpack.config.js && \
+RUN npx webpack build --config webpack.config.js && \
     rm -rf node_modules
 
-FROM node:14.13.1-buster-slim
+FROM node:14.17.6-buster-slim
 
 ENV TINI_VERSION v0.18.0
 

@@ -1,17 +1,9 @@
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
-import {
-    ViewButton,
-    ShowCategoryCreateFormButton,
-    HideCategoryCreateFormButton } from '../buttons'
-import { StyledEditForm, StyledLogin } from '../styles/formStyles'
+import { SubmitButton, ToggleFormButton } from '../../elements/buttons/main'
+import { StyledEditForm } from '../styles/formStyles'
 
-
-// const config = require('./merchConfig.json')
-
-const required = {
-    required: 'Required'
-}
+const required = { required: 'Required' }
 
 const reqHeaders = {
     'Accept': 'application/json',
@@ -26,31 +18,21 @@ export const NewCategoryForm = (props) => {
     })
     const { handleSubmit, register, errors, reset } = useForm()
 
-    const toggleForm = () => {
-        setState({
-            showForm: true
-        })
+    const displayForm = () => {
+        setState({ showForm: true })
     }
 
     const hideForm = () => {
-        setState({
-            showForm: false
-        })
+        setState({ showForm: false })
     }
 
     const successCreate = () => {
-        setState({
-            showForm: false,
-            categoryCreated: true
-        })
+        setState({ showForm: false, categoryCreated: true })
         props.runFunction()
     }
 
     const failedCreate = () => {
-        setState({
-            showForm: true,
-            failedCreate: true
-        })
+        setState({ showForm: true, failedCreate: true })
     }
 
     const onSubmit = values => {
@@ -88,7 +70,7 @@ export const NewCategoryForm = (props) => {
 
     return (
         <div>
-            <ShowCategoryCreateFormButton runFunction={toggleForm} />
+            <ToggleFormButton runFunction={displayForm} buttonText="Foo Cancel"/>
         {state.showForm &&
         <StyledEditForm>
             <h2>Create Category</h2>
@@ -103,8 +85,8 @@ export const NewCategoryForm = (props) => {
                         defaultChecked={true}
                         ref={register}
                     />
-                <ViewButton borderColor='#e2e2e2' text='Create' />
-                <HideCategoryCreateFormButton runFunction={hideForm} />
+                <SubmitButton buttonText='Create' />
+                <ToggleFormButton runFunction={hideForm} />
             </form>
             {state.failedCreate &&
                 <h3>Create Failed</h3>
@@ -113,10 +95,10 @@ export const NewCategoryForm = (props) => {
         }
         <div>
             {state.categoryCreated &&
-            <StyledLogin>
+            <div>
             <h2>Category Created</h2>
             <a href="/dashboard">Proceed To Dashboard</a>
-            </StyledLogin>
+            </div>
             }
         </div>
         </div>

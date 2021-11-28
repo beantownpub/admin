@@ -1,21 +1,21 @@
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
-import {
-    ViewButton,
-    ShowItemCreateFormButton,
-    HideCategoryCreateFormButton } from '../buttons'
+import { SubmitButton, ToggleFormButton } from '../../elements/buttons/main'
 import { StyledEditForm, StyledCreateComplete } from '../styles/formStyles'
 
-
-// const config = require('./merchConfig.json')
-
-const required = {
-    required: 'Required'
-}
+const required = { required: 'Required' }
 
 const reqHeaders = {
     'Accept': 'application/json',
     'Content-Type': 'application/json'
+}
+
+function makeSlug(name) {
+    return name.replace(/ /g, "-").toLowerCase()
+}
+
+function makeSingular(name) {
+    return name.replace(/ees$/, 'ee').replace(/es$/, '').replace(/s$/, '')
 }
 
 export const NewItemForm = (props) => {
@@ -26,43 +26,36 @@ export const NewItemForm = (props) => {
     })
     const { handleSubmit, register, errors, reset } = useForm()
 
-    const toggleForm = () => {
-        setState({
-            showForm: true
-        })
+    const displayForm = () => {
+        setState({ showForm: true })
     }
 
     const hideForm = () => {
-        setState({
-            showForm: false
-        })
+        setState({ showForm: false })
     }
 
     const successCreate = () => {
-        setState({
-            showForm: false,
-            itemCreated: true
-        })
+        console.log('New item created')
+        setState({ showForm: false, itemCreated: true })
         props.runFunction()
     }
 
     const failedCreate = () => {
-        setState({
-            showForm: true,
-            failedCreate: true
-        })
+        console.log('New item creation failed')
+        setState({ showForm: true, failedCreate: true })
     }
 
     const onSubmit = values => {
-        fetch(`${props.api}/items`, {
+        fetch(`food/items`, {
             method: 'POST',
             headers: reqHeaders,
             body: JSON.stringify({
-                name: values.itemName,
+                category_id: props.category,
                 description: values.description,
                 is_active: values.isActive,
+                name: values.itemName,
                 price: values.itemPrice,
-                category: props.category
+                slug: makeSlug(values.itemName)
             })
         })
         .catch(err => {
@@ -76,7 +69,7 @@ export const NewItemForm = (props) => {
             return response //UPDATE HERE
         })
         .then(data => {
-            console.log('Category Create Status: ' + data.status)
+            console.log('Item Create Status: ' + data.status)
             if (data.status === 200) {
                 successCreate()
             } else {
@@ -84,17 +77,17 @@ export const NewItemForm = (props) => {
             }
         })
         .catch(err => {
-            console.error('WTF ' + err)
+            console.error('Create onSubmit ' + err)
             failedCreate()
         })
     }
 
     return (
         <div>
-            <ShowItemCreateFormButton runFunction={toggleForm} />
+            <ToggleFormButton runFunction={displayForm} buttonText={`Add ${props.category}`}/>
         {state.showForm &&
-        <StyledEditForm>
-            <h2>Add Item</h2>
+        <StyledEditForm aria-labelledby="Add food item form">
+            <h2>Add New {props.category}</h2>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <input name='itemName' placeholder='Name' ref={register(required)} text="Hello" />
                 <label htmlFor="isActive">Active?</label>
@@ -115,8 +108,8 @@ export const NewItemForm = (props) => {
                     columns='50'
                     ref={register({ required: 'Required'})}
                 ></textarea>
-                <ViewButton borderColor='#e2e2e2' text='Create' />
-                <HideCategoryCreateFormButton runFunction={hideForm} />
+                <SubmitButton buttonText={`Add ${makeSingular(props.category)}`} />
+                <ToggleFormButton runFunction={hideForm} buttonText="Cancel" />
             </form>
             {state.failedCreate &&
                 <h3>Create Failed</h3>
@@ -125,9 +118,9 @@ export const NewItemForm = (props) => {
         }
         <div>
             {state.itemCreated &&
-            <StyledCreateComplete>
-            <h2>Item Created</h2>
-            </StyledCreateComplete>
+                <StyledCreateComplete>
+                <h2>Item Created</h2>
+                </StyledCreateComplete>
             }
         </div>
         </div>

@@ -10,7 +10,7 @@ export const StyledButton = styled.div`
     padding: .5rem;
     button {
         margin: .25rem auto;
-        padding: 1rem;
+        padding: .75rem;
         width: ${props => props.buttonWidth || "12rem"};
         font-family: gotham-narrow-ultra;
         background-color: ${props => props.bgColor || "white"};

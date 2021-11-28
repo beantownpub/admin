@@ -2,12 +2,27 @@ var express = require('express')
 var router = express.Router()
 var config = require('./config.json')
 const axios = require('axios')
+const request = require('../utils/requests')
 
-const FOOD_API = `${process.env.FOOD_API_HOST}:5004`
-const API_USER = process.env.API_USER
-const API_PW = process.env.API_PW
-const AUTH = 'Basic ' + Buffer.from(API_USER + ':' + API_PW).toString('base64')
+const HOST = process.env.MENU_API_HOST
+const PROTOCOL = process.env.MENU_API_PROTOCOL
+// const MENU_API = process.env.FOOD_API_URL
+const API_USERNAME = process.env.API_USERNAME
+const API_PASSWORD = process.env.API_PASSWORD
+const AUTH = 'Basic ' + Buffer.from(API_USERNAME + ':' + API_PASSWORD).toString('base64')
 const HEADERS = {'Content-Type': 'application/json', 'Authorization': AUTH}
+
+function makeRequest(apiUrl, method, res) {
+  try {
+    request(apiUrl, method, res)
+  } catch(error) {
+    console.log('Request Error: ' + error)
+    res.status(500).json({
+      'title': 'Request Failure',
+      'status': 500
+    })
+  }
+}
 
 router.get('/dashboard', function (req, res, next) {
   var sections = config.sections
@@ -26,41 +41,47 @@ router.get('/dashboard', function (req, res, next) {
 })
 
 router.get('/categories', function (req, res, next) {
-  try {
-    axios({
-      method: 'get',
-      url: `http://${FOOD_API}/v1/categories`,
-      headers: HEADERS
-    })
-      .then(response => {
-        console.log(response.data)
-        if (response.status === 200) {
-          res.status(200).json({
-            'status': 200,
-            'data': response.data
-          })
-        } else {
-          res.status(500).json({
-            'status': 500,
-            'message': 'Food API Category Error'
-          })
-        }
-        res.end()
-      })
-      .catch(error => {
-        console.error('AXIOS Error: ' + error)
-        res.status(500).json({
-          'title': 'Food Category Failure',
-          'status': 500
-        })
-      })
-  } catch(error) {
-    console.log('AUTH Error: ' + error)
-    res.status(500).json({
-      'title': 'Food Category Failure',
-      'status': 500
-    })
+  const apiUrl = `${PROTOCOL}://${HOST}/v1/categories`
+  const options = {
+    url: apiUrl,
+    method: 'get'
   }
+  makeRequest(options, res)
+})
+
+router.delete('/items/:slug', function (req, res, next) {
+  const slug = req.params['slug']
+  const apiUrl = `${PROTOCOL}://${HOST}/v1/menu/${slug}`
+  const options = {
+    url: apiUrl,
+    method: 'delete'
+  }
+  makeRequest(options, res)
+})
+
+router.put('/items/:slug', function (req, res, next) {
+  const slug = req.params['slug']
+  const apiUrl = `${PROTOCOL}://${HOST}/v1/menu/${slug}`
+  const options = {
+    url: apiUrl,
+    method: 'put',
+    data: req.body
+  }
+  makeRequest(options, res)
+})
+
+router.post('/items', function (req, res, next) {
+  console.log('POST Body:')
+  for (const item of Object.keys(req.body)) {
+    console.log(`${item}: ${req.body[item]}`)
+  }
+  const apiUrl = `${PROTOCOL}://${HOST}/v1/menu/items`
+  const options = {
+    url: apiUrl,
+    method: 'post',
+    data: req.body
+  }
+  makeRequest(options, res)
 })
 
 router.delete('/categories', function (req, res, next) {
@@ -68,7 +89,7 @@ router.delete('/categories', function (req, res, next) {
     const category = req.body.name
     axios({
       method: 'delete',
-      url: `http://${FOOD_API}/v1/categories/${category}`,
+      url: `${PROTOCOL}://${HOST}/v1/categories/${category}`,
     })
       .then(response => {
         if (response.status === 204) {
@@ -105,7 +126,7 @@ router.post('/categories', function (req, res, next) {
     const category = req.body.name
     axios({
       method: 'post',
-      url: `http://${FOOD_API}/v1/categories/${category}`,
+      url: `${PROTOCOL}://${HOST}/v1/categories/${category}`,
       data: req.body,
       headers: HEADERS
     })
@@ -138,13 +159,53 @@ router.post('/categories', function (req, res, next) {
   }
 })
 
+router.post('/legacy/items', function (req, res, next) {
+  console.log(req.body)
+  try {
+    const item = req.body
+    console.log(`POST request to create\n${item}`)
+    axios({
+      method: 'post',
+      url: `${PROTOCOL}://${HOST}/v1/menu/item`,
+      data: req.body,
+      headers: HEADERS
+    })
+      .then(response => {
+        if (response.status === 201) {
+          res.status(200).json({
+            'status': 200,
+          })
+        } else {
+          res.status(500).json({
+            'status': 500,
+            'message': 'Food API Item Error'
+          })
+        }
+        res.end()
+      })
+      .catch(error => {
+        console.error('AXIOS Error: ' + error)
+        res.status(500).json({
+          'title': 'Food Item Failure',
+          'status': 500
+        })
+      })
+  } catch(error) {
+    console.log('AUTH Error: ' + error)
+    res.status(500).json({
+      'title': 'Food Item Failure',
+      'status': 500
+    })
+  }
+})
+
 router.put('/categories', function (req, res, next) {
   console.log(req.body)
   try {
     const category = req.body.name
     axios({
       method: 'PUT',
-      url: `http://${FOOD_API}/v1/categories/${category}`,
+      url: `${PROTOCOL}://${HOST}/v1/categories/${category}`,
       data: req.body,
       headers: HEADERS
     })
@@ -156,7 +217,7 @@ router.put('/categories', function (req, res, next) {
         } else {
           res.status(500).json({
             'status': 500,
-            'message': 'Food API Category Error'
+            'message': `Food API Error - Status: ${response.status}`
           })
         }
         res.end()
@@ -165,7 +226,8 @@ router.put('/categories', function (req, res, next) {
         console.error('AXIOS Error: ' + error)
         res.status(500).json({
           'title': 'Food Category Failure',
-          'status': 500
+          'status': 500,
+          'message': error
         })
       })
   } catch(error) {
@@ -179,20 +241,8 @@ router.put('/categories', function (req, res, next) {
 
 // TODO fix routing so these routes aren't needed
 
-router.get('/about', function(req, res, next) {
-  res.redirect('/about')
-})
-
-router.get('/menu', function(req, res, next) {
-  res.redirect('/menu')
-})
-
-router.get('/parties', function(req, res, next) {
-  res.redirect('/parties')
-})
-
-router.get('/contact', function(req, res, next) {
-  res.redirect('/contact')
+router.get('/:page', function(req, res, next) {
+  res.redirect(`/${req.params['page']}`)
 })
 
 module.exports = router

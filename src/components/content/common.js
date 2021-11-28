@@ -3,9 +3,23 @@ import {
     StyledAnchor,
     StyledInfo,
     StyledLinkButton,
-    StyledHero,
-    StyledFooter } from './Styles'
+    StyledFooter } from './styles'
+import { StyledDashContainer } from './styles/dashboard'
 
+export const DashContainer = (props) => {
+    return (
+        <StyledDashContainer
+            aria-labelledby="Dashboard Container"
+            backgroundColor={props.bgColor}
+            fontColor={props.fontColor}
+            textAlign={props.textAlign}
+            marginTop={props.marginTop}
+            paddingTop={props.paddingTop}
+            paddingBottom={props.paddingBottom}
+            paddingLeft={props.paddingLeft}
+            paddingRight={props.paddingRight}>{props.children}</StyledDashContainer>
+    )
+}
 
 export const InfoSection = (props) => {
     return (
@@ -35,14 +49,6 @@ export const LinkButton = (props) => {
         <StyledLinkButton buttonColor={props.color} fontColor={props.fontColor}>
             <button onClick={goTo} type="button">{props.children}</button>
         </StyledLinkButton>
-    )
-}
-
-export const HeroHeader = () => {
-    return (
-        <StyledHero>
-            <h1>The only pub in the world where you can drink a cold Sam Adams' while viewing a cold Sam Adams</h1>
-        </StyledHero>
     )
 }
 

@@ -1,61 +1,43 @@
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
-import {
-    ViewButton,
-    ShowCategoryCreateFormButton,
-    HideCategoryCreateFormButton } from '../buttons'
-import { StyledEditForm, StyledLogin } from '../styles/formStyles'
+import { SubmitButton, ToggleFormButton } from '../../elements/buttons/main'
+import { StyledEditForm } from '../styles/formStyles'
 
-
-// const config = require('./merchConfig.json')
-
-const required = {
-    required: 'Required'
-}
+const required = { required: 'Required' }
 
 const reqHeaders = {
     'Accept': 'application/json',
     'Content-Type': 'application/json'
 }
 
-export const NewCategoryForm = (props) => {
+export const EditCategoryForm = (props) => {
     const [state, setState] = useState({
         showForm: false,
-        categoryCreated: false,
-        failedCreate: false
+        categoryEdited: false,
+        failedEdit: false
     })
     const { handleSubmit, register, errors, reset } = useForm()
 
-    const toggleForm = () => {
-        setState({
-            showForm: true
-        })
+    const displayForm = () => {
+        setState({ showForm: true })
     }
 
     const hideForm = () => {
-        setState({
-            showForm: false
-        })
+        setState({ showForm: false })
     }
 
     const successCreate = () => {
-        setState({
-            showForm: false,
-            categoryCreated: true
-        })
+        setState({ showForm: false, categoryEdited: true })
         props.runFunction()
     }
 
     const failedCreate = () => {
-        setState({
-            showForm: true,
-            failedCreate: true
-        })
+        setState({ showForm: true, failedEdit: true })
     }
 
     const onSubmit = values => {
-        fetch(`${props.api}/categories`, {
-            method: 'POST',
+        fetch('/categories', {
+            method: 'put',
             headers: reqHeaders,
             body: JSON.stringify({
                 name: values.categoryName,
@@ -73,7 +55,7 @@ export const NewCategoryForm = (props) => {
             return response //UPDATE HERE
         })
         .then(data => {
-            console.log('Category Create Status: ' + data.status)
+            console.log('Category Edit Status: ' + data.status)
             if (data.status === 200) {
                 successCreate()
             } else {
@@ -88,35 +70,38 @@ export const NewCategoryForm = (props) => {
 
     return (
         <div>
-            <ShowCategoryCreateFormButton runFunction={toggleForm} />
+            <ToggleFormButton runFunction={displayForm} buttonText="Edit" />
         {state.showForm &&
         <StyledEditForm>
-            <h2>Create Category</h2>
+            <h2 className="editForm">Edit Category</h2>
             <form onSubmit={handleSubmit(onSubmit)}>
-                <input name='categoryName' placeholder='Name' ref={register(required)} text="Hello Asshole" />
+                <label htmlFor="categoryName">Category Name</label>
+                    <input name='categoryName' defaultValue={props.name} ref={register(required)} />
+                <div className="checkField">
                 <label htmlFor="isActive">Active?</label>
                     <input
                         className="check"
                         type="checkbox"
                         id="isActive"
                         name="isActive"
-                        defaultChecked={true}
+                        defaultChecked={props.isActive}
                         ref={register}
                     />
-                <ViewButton borderColor='#e2e2e2' text='Create' />
-                <HideCategoryCreateFormButton runFunction={hideForm} />
+                </div>
+                <SubmitButton runFunction={props.runFunction} buttonText="Update"/>
+                <ToggleFormButton runFunction={hideForm} buttonText="Cancel" />
             </form>
-            {state.failedCreate &&
-                <h3>Create Failed</h3>
+            {state.failedEdit &&
+                <h3>Update Failed</h3>
             }
         </StyledEditForm>
         }
         <div>
-            {state.categoryCreated &&
-            <StyledLogin>
+            {state.categoryEdited &&
+            <div>
             <h2>Category Created</h2>
             <a href="/dashboard">Proceed To Dashboard</a>
-            </StyledLogin>
+            </div>
             }
         </div>
         </div>

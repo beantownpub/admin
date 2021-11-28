@@ -3,21 +3,22 @@
   "version": "0.1.4",
   "private": true,
   "scripts": {
-    "start": "node -r dotenv/config ./bin/server dotenv_config_path=/app/.env",
+    "start": "node ./bin/server",
     "_start": "JAL_VERSION=${JAL_VERSION} node ./bin/server",
-    "build": "npx webpack --env JAL_VERSION=${JAL_VERSION} --config webpack.config.js"
+    "build": "npx webpack --config webpack.config.js"
   },
   "dependencies": {
     "axios": "^0.21.1",
     "cookie-parser": "~1.4.4",
     "debug": ">=4.1.1",
-    "dotenv": "^8.2.0",
     "ejs": ">=3.0.1",
     "express": ">=4.17.1",
+    "express-prometheus-middleware": "^1.1.0",
     "express-session": "^1.17.1",
     "http-errors": ">=1.7.1",
     "morgan": "~1.9.1",
     "node-sass-middleware": "0.11.0",
+    "prom-client": "^13.1.0",
     "react-slick": "^0.25.2",
     "react-slideshow-image": "^1.4.2",
     "square-connect": "^4.20201028.5"
@@ -41,12 +42,13 @@
     "react-dom": "^16.12.0",
     "react-google-maps": "^9.4.5",
     "react-hook-form": "^5.1.1",
+    "react-is": "^17.0.2",
     "react-loader-spinner": "^3.1.5",
     "react-markdown": "^4.3.1",
     "react-syntax-highlighter": "^12.2.1",
-    "styled-components": "^5.0.0",
+    "styled-components": "^5.3.1",
     "universal-cookie": "^4.0.3",
     "webpack": "^4.41.5",
-    "webpack-cli": "^3.3.12"
+    "webpack-cli": "^4.2.0"
   }
 }

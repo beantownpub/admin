@@ -7,10 +7,12 @@ export const StyledItem = styled.div`
     flex-flow: row wrap;
     border: 1px solid black;
     border-radius: 6px;
+    background: #fafafa;
     h2 {
         width: 100%;
         letter-spacing: .25rem;
         border: unset;
+        font-family: 'Raleway', Arial, sans-serif;
         color: red;
     }
     .priceDisplay {
@@ -23,13 +25,15 @@ export const StyledItem = styled.div`
     .description {
         display: flex;
         flex-flow: column wrap;
-        width: 80%;
+        font-family: 'Raleway', Arial, sans-serif;
+        width: 100%;
         p {
             padding: 1.5rem;
-            width: 95%;
+            width: 99%;
             background-color: white;
             border-radius: 6px;
-            color: black
+            color: black;
+            border: .5px solid black;
         }
         h3 {
             text-transform: uppercase;

@@ -1,8 +1,6 @@
 import React from 'react'
-import {
-    StyledCategoryCard,
-    StyledItemsContainer } from './styles/categories'
-import { CategoryDeleteButton, } from './buttons'
+import { StyledCategoryCard, StyledItemsContainer } from './styles/categories'
+import { DeleteButton, } from '../elements/buttons/main'
 import { NewItemForm } from './forms/addItem'
 import { EditCategoryForm } from './forms/editCategory'
 import { ItemCard } from './items'
@@ -11,29 +9,33 @@ import { ItemCard } from './items'
 export const CategoryCard = (props) => {
     const renderItems = () => {
         let items = ''
-        console.log(props.items)
+        // console.log('ITEMS: ' + props.items)
         if (props.items) {
             items = props.items.map((item) =>
                 <ItemCard key={item.sku.toString()}
+                    runFunction={props.runFunction}
+                    category={props.name}
                     sku={item.sku}
+                    slug={item.slug}
                     name={item.name}
-                    isActive={item.isActive}
+                    isActive={item.is_active}
                     description={item.description}
                     price={item.price}
                 />
             )
         }
         return (
-            <StyledItemsContainer>
-                <h3>{props.name}</h3>
-                <NewItemForm showForm={props.showForm} runFunction={props.runFunction} />
+            <StyledItemsContainer aria-labelledby="Items Container">
+                <div className="newItemFormButton">
+                    <NewItemForm showForm={props.showForm} runFunction={props.runFunction} category={props.name}/>
+                </div>
                 {items}
             </StyledItemsContainer>
         )
     }
 
     return (
-        <StyledCategoryCard>
+        <StyledCategoryCard aria-labelledby="Category Card">
             <h2>{props.name}</h2>
             <div className="isActive">
                 <div>Active</div>
@@ -45,7 +47,7 @@ export const CategoryCard = (props) => {
                 }
             </div>
             <div className="buttonsDisplay">
-            <CategoryDeleteButton category={props.name} runFunction={props.runFunction}/>
+            <DeleteButton name={props.name} runFunction={props.runFunction} endPoint="food/categories" />
             <EditCategoryForm
                 showForm={props.form}
                 runFunction={props.runFunction}

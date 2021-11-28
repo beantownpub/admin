@@ -1,17 +1,9 @@
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
-import {
-    CategoryEditButton,
-    ShowCategoryEditFormButton,
-    HideCategoryCreateFormButton } from '../buttons'
-import { StyledEditForm, StyledLogin } from '../styles/formStyles'
+import { SubmitButton, ToggleFormButton } from '../../elements/buttons/main'
+import { StyledEditForm } from '../styles/formStyles'
 
-
-// const config = require('./merchConfig.json')
-
-const required = {
-    required: 'Required'
-}
+const required = { required: 'Required' }
 
 const reqHeaders = {
     'Accept': 'application/json',
@@ -26,23 +18,16 @@ export const EditItemForm = (props) => {
     })
     const { handleSubmit, register, errors, reset } = useForm()
 
-    const toggleForm = () => {
-        setState({
-            showForm: true
-        })
+    const displayForm = () => {
+        setState({ showForm: true })
     }
 
     const hideForm = () => {
-        setState({
-            showForm: false
-        })
+        setState({ showForm: false })
     }
 
     const successCreate = () => {
-        setState({
-            showForm: false,
-            categoryEdited: true
-        })
+        setState({ showForm: false, categoryEdited: true })
         props.runFunction()
     }
 
@@ -54,13 +39,16 @@ export const EditItemForm = (props) => {
     }
 
     const onSubmit = values => {
-        fetch('/categories', {
+        fetch(`food/items/${values.itemSlug}`, {
             method: 'put',
             headers: reqHeaders,
             body: JSON.stringify({
-                name: values.categoryName,
-                has_sizes: values.hasSizes,
-                is_active: values.isActive
+                category_id: values.category,
+                description: values.description,
+                is_active: values.isActive,
+                name: values.itemName,
+                price: values.itemPrice,
+                slug: values.itemSlug
             })
         })
         .catch(err => {
@@ -74,41 +62,30 @@ export const EditItemForm = (props) => {
             return response //UPDATE HERE
         })
         .then(data => {
-            console.log('Product Edit Status: ' + data.status)
-            if (data.status === 204) {
+            console.log('Item Edit Status: ' + data.status)
+            if (data.status === 200) {
                 successCreate()
             } else {
                 failedCreate()
             }
         })
         .catch(err => {
-            console.error('WTF ' + err)
+            console.error('Edit onSubmit error: ' + err)
             failedCreate()
         })
     }
 
     return (
         <div>
-            <ShowCategoryEditFormButton runFunction={toggleForm} />
+            <ToggleFormButton runFunction={displayForm} buttonText="Edit"/>
         {state.showForm &&
         <StyledEditForm>
             <h2 className="editForm">Edit Item</h2>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <label htmlFor="itemName">Name</label>
                 <input name='itemName' defaultValue={props.name} ref={register(required)} />
-                {props.haSizes &&
-                    <div className="checkField">
-                    <label htmlFor="hasSizes">Has more than one size?</label>
-                    <input
-                        className="check"
-                        type="checkbox"
-                        id="hasSizes"
-                        name="hasSizes"
-                        defaultChecked={props.hasSizes}
-                        ref={register}
-                    />
-                    </div>
-                }
+                <input name='itemSlug' defaultValue={props.slug} ref={register(required)} type="hidden" />
+                <input name='category' defaultValue={props.category} ref={register(required)} type="hidden" />
                 <div className="checkField">
                 <label htmlFor="isActive">Active?</label>
                     <input
@@ -130,22 +107,14 @@ export const EditItemForm = (props) => {
                         ref={register({ required: 'Required'})}
                         defaultValue={props.description}
                     ></textarea>
-                <CategoryEditButton Product={props.name} runFunction={props.runFunction}/>
-                <HideCategoryCreateFormButton runFunction={hideForm} />
+                <SubmitButton runFunction={props.runFunction} buttonText="Update Item"/>
+                <ToggleFormButton runFunction={hideForm} buttonText="Cancel"/>
             </form>
             {state.failedEdit &&
                 <h3>Update Failed</h3>
             }
         </StyledEditForm>
         }
-        <div>
-            {state.categoryEdited &&
-            <StyledLogin>
-            <h2>Product Created</h2>
-            <a href="/dashboard">Proceed To Dashboard</a>
-            </StyledLogin>
-            }
-        </div>
         </div>
     )
 }
