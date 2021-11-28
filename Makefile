@@ -1,7 +1,7 @@
 .PHONY: all test clean
 
 dockerhub ?= jalgraves
-image_name ?= admin
+image_name ?= beantown_admin
 version ?= $(shell jq .version package.json)
 port ?= 3033
 
@@ -29,7 +29,7 @@ prod_build: sass
 
 dev_build: sass
 		docker build \
-			-t $(image_name)_dev:$(version) \
+			-t $(image_name):$(version) \
 			--build-arg square_app_id=${SQUARE_APP_ID} \
 			--build-arg node_env=development .
 

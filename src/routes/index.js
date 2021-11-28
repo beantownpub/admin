@@ -62,16 +62,17 @@ router.get('/dashboard', function (req, res, next) {
 })
 
 router.post('/auth', function (req, res, next) {
+  const api_url = `${process.env.USERS_API_PROTOCOL}://${process.env.USERS_API_HOST}/v1/auth`
   try {
     axios({
       method: 'post',
-      url: `http://${process.env.AUTH_API_HOST}:5045/v1/auth`,
+      url: api_url,
       data: req.body,
       headers: HEADERS
     })
       .then(response => {
         if (response.status === 200) {
-          console.log(`AUTH API Status: ${response.status}`)
+          console.log(`USERS API Status: ${response.status}`)
           req.session.loggedin = true
           req.session.username = req.body.username
           res.status(200).json({

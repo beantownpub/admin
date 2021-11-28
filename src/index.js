@@ -1,9 +1,9 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { LoginForm } from './components/loginForm'
-import { MainDash, PartiesDash, FoodMenuDash, Merch } from './components/pages'
-import { Footer } from './components/common'
-import { TopMenuBar, LinkList, TopNavBar, linkProps } from './components/TopBar'
+import { LoginForm } from './components/login/main'
+import { MainDash, PartiesDash, FoodMenuDash, Merch } from './components/content/main'
+import { Footer } from './components/content/common'
+import { TopMenuBar, LinkList, TopNavBar, linkProps } from './components/topBar/main'
 const config = require('./config.json')
 const pages = config.beantown.pages
 const staticURL = config.beantown.static_url
@@ -56,8 +56,9 @@ ReactDOM.render(
 )
 
 if (document.getElementById('loginForm')) {
+    const title = "Beantown Management"
     ReactDOM.render(
-        <LoginForm/>,
+        <LoginForm title={title} />,
         document.getElementById('loginForm')
     )
 }

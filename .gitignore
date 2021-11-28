@@ -109,3 +109,4 @@ credentials.yaml
 .scrap/
 .k8s/
 local-deployment.yaml
+src/scrap

@@ -1,7 +1,12 @@
 import React, { useState, useEffect } from 'react'
-import { StyledCategoriesContainer } from '../styles/categories'
-import { NewCategoryForm } from '../forms/addCategory'
-import { CategoryCard } from '../categories'
+import { StyledSectionContainer } from './styles/categories'
+import { NewCategoryForm } from './forms/addCategory'
+import { CategoryCard } from './categories'
+
+const OPTIONS = {
+    method: 'GET',
+    headers: {'Content-Type': 'application/json'}
+}
 
 export const FoodDash = () => {
     const [state, setState] = useState({
@@ -14,22 +19,15 @@ export const FoodDash = () => {
         showForm(true)
     }
     useEffect(() => {
-        const options = {
-            method: 'GET',
-            headers: {'Content-Type': 'application/json'}
-        }
-        fetch('food/categories', options)
+        fetch('food/categories', OPTIONS)
             .then(response => response.json())
             .then(data => setState({ categories: data.data }))
             .catch(error => console.log(error))
     }, [form, updated])
 
     const updateCategories = () => {
-        const options = {
-            method: 'GET',
-            headers: {'Content-Type': 'application/json'}
-        }
-        fetch('food/categories', options)
+        console.log('Updating Categories')
+        fetch('food/categories', OPTIONS)
             .then(response => response.json())
             .then(data => setState({ categories: data.data, new: data.data }))
             .then(update(true))
@@ -37,25 +35,23 @@ export const FoodDash = () => {
     }
 
     const renderCategories = (categories) => {
-        console.log('Categories: ' + categories)
-        console.log('Categories Keys: ' + Object.keys(categories))
-        // const cats = state.categories
-        const cats = categories.map((category) =>
-        <CategoryCard
-            key={category.id.toString()}
-            name={category.name}
-            isActive={category.is_active}
-            items={category.items}
-            runFunction={updateCategories}
-            showForm={form}
-            api="food"
-        />);
+        const categoryCards = categories.map((category) =>
+            <CategoryCard
+                key={category.sku.toString()}
+                name={category.name}
+                isActive={category.is_active}
+                items={category.items}
+                runFunction={updateCategories}
+                showForm={form}
+                api="food"
+            />
+        )
         return (
-            <StyledCategoriesContainer>
-                <h1>Categories</h1>
+            <StyledSectionContainer aria-labelledby="Categories sections container">
+                <h1>Food Menu Categories</h1>
                 <NewCategoryForm showForm={form} runFunction={updateCategories} api="food" />
-                {cats}
-            </StyledCategoriesContainer>
+                {categoryCards}
+            </StyledSectionContainer>
         )
     }
 

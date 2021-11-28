@@ -1,6 +1,6 @@
 // import React, { useState } from 'react'
 import React from 'react'
-import MenuIcon, { getIcon } from '../icon'
+import MenuIcon, { getIcon } from '../content/icon'
 import { StyledButton, iconStyle } from './styles/buttonStyles'
 
 export class CartButton extends React.Component {
