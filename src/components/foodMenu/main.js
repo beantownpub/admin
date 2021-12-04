@@ -41,6 +41,7 @@ export const FoodDash = () => {
                 name={category.name}
                 isActive={category.is_active}
                 items={category.items}
+                slug={category.slug}
                 runFunction={updateCategories}
                 showForm={form}
                 api="food"

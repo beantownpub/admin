@@ -47,12 +47,13 @@ export const CategoryCard = (props) => {
                 }
             </div>
             <div className="buttonsDisplay">
-            <DeleteButton name={props.name} runFunction={props.runFunction} endPoint="food/categories" />
+            <DeleteButton name={props.slug} runFunction={props.runFunction} endPoint={`food/categories/${props.slug}`} />
             <EditCategoryForm
                 showForm={props.form}
                 runFunction={props.runFunction}
                 name={props.name}
                 isActive={props.isActive}
+                slug={props.slug}
             />
             </div>
             <div>{renderItems()}</div>

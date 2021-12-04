@@ -1,7 +1,7 @@
 import React from 'react'
 import { DashContainer, InfoSection } from './common'
-import { MerchDash } from '../merchMgmtUi'
-import { FoodDash } from '../foodMenu/main.js'
+// import { MerchDash } from '../merch/main'
+import { FoodDash } from '../foodMenu/main'
 // import { LinkButton } from './common'
 
 
@@ -52,7 +52,8 @@ export const Merch = () => {
         <InfoSection bgColor='#fcba03' marginTop='10rem'>
             <section>
                 <h1>Beantown Merchandise</h1>
-                <MerchDash/>
+                {// <MerchDash/>
+                }
             </section>
         </InfoSection>
         </div>
