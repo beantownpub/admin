@@ -2,6 +2,7 @@ import styled from 'styled-components'
 
 const CONFIG = require('../content/config.json')
 const COLORS = CONFIG.colors
+const FONTS = CONFIG.fonts
 
 export const StyledLoginContainer = styled.div`
     margin: 10rem auto;
@@ -11,7 +12,7 @@ export const StyledLoginContainer = styled.div`
     h1 {
         margin: auto;
         padding: .25rem;
-        font-size: 2rem;
+        font-size: 1.5rem;
         color: ${COLORS.yellow};
         font-family: gotham;
         font-weight: bold;
@@ -45,7 +46,7 @@ export const StyledLoginForm = styled.div`
     }
     h2 {
         padding: .25rem;
-        font-size: 2rem;
+        font-size: 1.5rem;
         color: white;
         font-family: gotham;
         font-weight: bold;
@@ -63,32 +64,33 @@ export const StyledLoginForm = styled.div`
 `
 
 export const StyledLogin = styled.div`
-    margin: 10rem auto;
     display: flex;
     flex-flow: column wrap;
-    width: 355px;
     font-family: gotham;
     font-weight: bold;
+    margin: 10rem auto;
+    width: 355px;
     h2 {
-        padding: .25rem;
-        font-size: 2rem;
         color: white;
-        font-family: gotham;
+        letter-spacing: .25rem;
+        margin: .5rem auto;
+        padding: .25rem;
+        font-family: ${FONTS.poppins};
+        font-size: 1.5rem;
         font-weight: bold;
         text-transform: uppercase;
-        letter-spacing: .25rem;
     }
     a {
-        margin: .5rem auto;
-        padding: 2rem 2.5rem;
+        background-color: #fcba03;
         border: .05rem solid #e2e2e2;
         border-radius: 6px;
+        color: black;
         font-family: gotham-narrow-ultra;
         text-align: center;
-        text-transform: uppercase;
-        text-decoration: none;
         letter-spacing: .25rem;
-        background-color: #fcba03;
-        color: black;
+        margin: .5rem auto;
+        padding: 2rem 2.5rem;
+        text-decoration: none;
+        text-transform: uppercase;
     }
 `

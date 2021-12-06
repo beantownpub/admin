@@ -34,25 +34,6 @@ router.get('/dashboard', function (req, res, next) {
   }
 })
 
-router.get('/categories', function (req, res, next) {
-  const apiUrl = `${PROTOCOL}://${HOST}/v1/categories`
-  const options = {
-    url: apiUrl,
-    method: 'get'
-  }
-  makeRequest(options, res)
-})
-
-router.delete('/categories/:slug', function (req, res, next) {
-  const slug = req.params['slug']
-  const apiUrl = `${PROTOCOL}://${HOST}/v1/categories/${slug}`
-  const options = {
-    url: apiUrl,
-    method: 'delete'
-  }
-  makeRequest(options, res)
-})
-
 router.delete('/items/:slug', function (req, res, next) {
   const slug = req.params['slug']
   const apiUrl = `${PROTOCOL}://${HOST}/v1/menu/${slug}`
@@ -74,9 +55,9 @@ router.put('/items/:slug', function (req, res, next) {
   makeRequest(options, res)
 })
 
-router.post('/items/:slug', function (req, res, next) {
-  const slug = req.params['slug']
-  const apiUrl = `${PROTOCOL}://${HOST}/v1/menu/${slug}`
+router.post('/items', function (req, res, next) {
+  const apiUrl = `${PROTOCOL}://${HOST}/v1/menu/items`
+  console.log(`POST ${apiUrl}`)
   const options = {
     url: apiUrl,
     method: 'post',
@@ -85,19 +66,42 @@ router.post('/items/:slug', function (req, res, next) {
   makeRequest(options, res)
 })
 
-router.post('/categories/:slug', function (req, res, next) {
+router.delete('/categories/:slug', function (req, res, next) {
   const slug = req.params['slug']
   const apiUrl = `${PROTOCOL}://${HOST}/v1/categories/${slug}`
+  console.log(`DELETE categories request ${apiUrl}`)
   const options = {
     url: apiUrl,
-    method: 'post',
+    method: 'delete'
+  }
+  makeRequest(options, res)
+})
+
+router.put('/categories/:slug', function (req, res, next) {
+  const slug = req.params['slug']
+  const apiUrl = `${PROTOCOL}://${HOST}/v1/categories/${slug}`
+  console.log(`PUT request ${apiUrl}`)
+  const options = {
+    url: apiUrl,
+    method: 'put',
     data: req.body
   }
   makeRequest(options, res)
 })
 
-router.post('/:menuObjectType', function (req, res, next) {
-  const apiUrl = `${PROTOCOL}://${HOST}/v1/menu/${req.params['menuObjectType']}`
+router.get('/categories', function (req, res, next) {
+  const apiUrl = `${PROTOCOL}://${HOST}/v1/categories`
+  console.log(`GET categories request ${apiUrl}`)
+  const options = {
+    url: apiUrl,
+    method: 'get'
+  }
+  makeRequest(options, res)
+})
+
+router.post('/categories', function (req, res, next) {
+  const apiUrl = `${PROTOCOL}://${HOST}/v1/categories`
+  console.log(`POST categories request ${apiUrl}`)
   const options = {
     url: apiUrl,
     method: 'post',

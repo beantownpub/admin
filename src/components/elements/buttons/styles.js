@@ -1,5 +1,8 @@
 import styled from 'styled-components'
 
+const CONFIG = require('../../content/config.json')
+const COLORS = CONFIG.colors
+
 export const iconStyle = {
     margin: 'auto .5rem',
     color: '#e6cb00',
@@ -7,20 +10,21 @@ export const iconStyle = {
 }
 
 export const StyledButton = styled.div`
-    padding: .5rem;
+    margin: ${props => props.outerMargin || "unset"};
+    padding: ${props => props.outerPadding || ".5rem"};
     button {
-        margin: .25rem auto;
-        padding: 1rem;
-        width: ${props => props.buttonWidth || "12rem"};
-        font-family: gotham-narrow-ultra;
-        background-color: ${props => props.bgColor || "white"};
-        border: 1px solid ${props => props.borderColor || "white"};
-        border-radius: 6px;
-        text-decoration: none;
-        font-size: 1rem;
-        text-align: center;
-        text-transform: uppercase;
-        letter-spacing: .2rem;
-        color: black;
+        background-color: ${props => props.backgroundColor || COLORS.white};
+        border: ${props => props.border || `.15rem solid ${COLORS.black}`};
+        border-radius: ${props => props.borderRadius || ".5rem"};
+        color: ${props => props.textColor || COLORS.white};
+        font-family: ${props => props.fontFamily || "gotham-narrow-ultra"};
+        font-size: ${props => props.fontSize || "1rem"};
+        letter-spacing: ${props => props.letterSpacing || ".2rem"};
+        margin: ${props => props.margin || ".25rem auto"};
+        padding: ${props => props.padding || "1rem"};
+        text-align: ${props => props.textAlign || "center"};
+        text-decoration: ${props => props.textDecoration || "none"};
+        text-transform: ${props => props.textTransform || "uppercase"};
+        width: ${props => props.width || "12rem"};
     }
 `

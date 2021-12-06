@@ -1,14 +1,31 @@
 {
     "colors": {
-        "yellow": "#fcba03",
-        "gray": "#494040",
-        "red": "#c70039",
-        "navBarBlue": "rgba(5,46,102,0.90)",
-        "blue": "#1f6696",
-        "lightGray": "#F3F4F4",
-        "darkGray": "#383838",
-        "cyan": "#3fc5f0",
+        "antiFlashWhite": "#f2f3f4",
         "black": "#000000",
-        "white": "whitesmoke"
+        "blue": "#1f6696",
+        "cyan": "#3fc5f0",
+        "darkGray": "#383838",
+        "dimGray": "#696969",
+        "dodgerBlue": "#1e90ff",
+        "gray": "#494040",
+        "green": "#008000",
+        "lawnGreen": "#lawngreen",
+        "lightGray": "#F3F4F4",
+        "navBarBlue": "rgba(5,46,102,0.90)",
+        "paleAqua": "#bcd4e6",
+        "paleGreen": "#98fb98",
+        "pastelGreen": "#77dd77",
+        "pastelYellow": "#fdfd96",
+        "practicallyWhite": "#fdfdfd",
+        "red": "#c70039",
+        "shadowGray": "#e2e2e2",
+        "spanishGray": "#989898",
+        "unmellowYellow": "#ffff66",
+        "white": "white",
+        "yellow": "#fcba03"
+    },
+    "fonts": {
+        "lato": "'Lato', sans-serif",
+        "poppins": "'Poppins', sans-serif"
     }
 }

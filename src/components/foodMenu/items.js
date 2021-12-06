@@ -1,5 +1,4 @@
 import React from 'react'
-import { DeleteButton } from '../elements/buttons/main'
 import { EditItemForm } from './forms/editItem'
 import { StyledItem } from './styles/itemStyles'
 
@@ -26,20 +25,17 @@ export const ItemCard = (props) => {
             </div>
             }
 
-            <div className="buttonsDisplay">
-                <DeleteButton name={props.slug} runFunction={props.runFunction} endPoint={`food/items/${props.slug}`}/>
-                <EditItemForm
-                    showForm={props.form}
-                    runFunction={props.runFunction}
-                    name={props.name}
-                    price={props.price}
-                    slug={props.slug}
-                    category={props.category}
-                    isActive={props.isActive}
-                    hasSizes={props.hasSizes}
-                    description={props.description}
-                />
-            </div>
+            <EditItemForm
+                showForm={props.form}
+                runFunction={props.runFunction}
+                name={props.name}
+                price={props.price}
+                slug={props.slug}
+                category={props.category}
+                isActive={props.isActive}
+                hasSizes={props.hasSizes}
+                description={props.description}
+            />
         </StyledItem>
     )
 }

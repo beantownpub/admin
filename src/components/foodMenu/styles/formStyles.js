@@ -1,55 +1,51 @@
 import styled from 'styled-components'
 
+const CONFIG = require('../../content/config.json')
+const COLORS = CONFIG.colors
+const FONTS = CONFIG.fonts
+
 export const StyledEditForm = styled.div`
-    margin: 2rem auto;
-    padding: 1rem;
+    background-color: ${props => props.backgroundColor || COLORS.practicallyWhite};
+    border: .15rem solid ${COLORS.shadowGray};
+    border-radius: .5rem;
+    box-shadow: ${props => props.boxShadow || `.25rem .25rem 1rem .5rem ${COLORS.shadowGray}`};
     display: flex;
     flex-flow: column wrap;
-    width: 95%;
-    border: .05rem solid #e2e2e2;
-    border-radius: 4px;
-    background-color: aliceblue;
+    margin: ${props => props.outerMargin || "2rem auto"};
+    max-width: 99vw;
+    padding: 1rem;
+    width: ${props => props.width || "max-content"};
     form {
+        margin: auto;
         padding: 1rem;
         display: flex;
         flex-flow: column wrap;
+        width: 100%;
+        max-width: 35rem;
         input {
             margin: .5rem 0;
             padding: .5rem;
-            width: 300px;
-            height: 40px;
-            border: .05rem solid #e2e2e2;
-            border-radius: 6px;
+            max-width: 95vw;
+            border: .05rem solid ${COLORS.dimGray};
+            border-radius: .5rem;
         }
         label {
             margin: auto .25rem;
-            font-family: gotham-narrow-ultra;
-            letter-spacing: .25rem;
+            font-family: ${FONTS.poppins};
+            font-weight: 700;
             text-transform: uppercase;
         }
     }
-    .editForm {
-        h2 {
-            padding: .05rem;
-            font-size: 1.25rem;
-            color: blue;
-            font-family: gotham-narrow-ultra;
-            text-transform: uppercase;
-            letter-spacing: .25rem;
-        }
-    }
-    h3 {
+    h2 {
+        font-family: ${FONTS.poppins};
         font-size: 1rem;
-        color: red;
-        font-family: gotham;
-        font-weight: bold;
-        text-transform: uppercase;
-        letter-spacing: .25rem;
+        margin: auto;
+    }
+    .inputField {
+        height: 35px;
     }
     .check {
-        margin-left: 1rem;
-        height: 15px;
-        width: 15px;
+        width: 3rem;
     }
     .checkField {
         margin-top: .5rem;
@@ -59,8 +55,25 @@ export const StyledEditForm = styled.div`
     }
 `
 
-export const StyledCreateComplete = styled.div`
-    h2 {
-        color: red;
+export const StyledFormContainer = styled.div`
+    display: flex;
+    flex-flow: column wrap;
+    margin: auto;
+    width: 100%;
+    animation-duration: .5s;
+    animation-name: slidein;
+    .alignButtonsHorizontally {
+        display: flex;
+        flex-flow: row nowrap;
+    }
+    @keyframes slidein {
+        from {
+            margin-left: 100%;
+            width: 300%;
+        }
+        to {
+            margin-left: 0%;
+            width: 100%;
+        }
     }
 `

@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from 'react'
-import { StyledSectionContainer } from './styles/categories'
+import { StyledMainContainer } from './styles/main'
 import { NewCategoryForm } from './forms/addCategory'
 import { CategoryCard } from './categories'
+import { ToggleButton } from '../elements/buttons/main'
+
+const CONFIG = require('../content/config.json')
+const COLORS = CONFIG.colors
 
 const OPTIONS = {
     method: 'GET',
@@ -10,20 +14,24 @@ const OPTIONS = {
 
 export const FoodDash = () => {
     const [state, setState] = useState({
-        categories: []
+        categories: [],
+        showNewCategoryForm: false
     })
     const [updated, update] = useState(false)
-    const [form, showForm] = useState(false)
-    const toggleForm = () => {
-        console.log('Toggling form')
-        showForm(true)
+
+    const displayForm = () => {
+        setState({ showNewCategoryForm: true, categories: state.categories })
+    }
+
+    const hideForm = () => {
+        setState({ showNewCategoryForm: false, categories: state.categories })
     }
     useEffect(() => {
         fetch('food/categories', OPTIONS)
             .then(response => response.json())
             .then(data => setState({ categories: data.data }))
             .catch(error => console.log(error))
-    }, [form, updated])
+    }, [updated])
 
     const updateCategories = () => {
         console.log('Updating Categories')
@@ -43,24 +51,34 @@ export const FoodDash = () => {
                 items={category.items}
                 slug={category.slug}
                 runFunction={updateCategories}
-                showForm={form}
+                showForm={displayForm}
                 api="food"
             />
         )
         return (
-            <StyledSectionContainer aria-labelledby="Categories sections container">
-                <h1>Food Menu Categories</h1>
-                <NewCategoryForm showForm={form} runFunction={updateCategories} api="food" />
+            <div aria-labelledby="Category cards">
                 {categoryCards}
-            </StyledSectionContainer>
+            </div>
         )
     }
 
     return (
-        <div>
+        <StyledMainContainer aria-labelledby="Main container">
+            <h1>Menu Sections</h1>
+            <ToggleButton
+                // displays and hides form for creating categories
+                bgColor={COLORS.pastelGreen}
+                buttonText="Add New Section"
+                outerMargin="auto"
+                runFunction={displayForm}
+                textColor={COLORS.black}
+            />
+            {state.showNewCategoryForm &&
+                <NewCategoryForm boxShadow="unset" hideForm={hideForm} reRenderFunction={updateCategories}/>
+            }
             {state.categories &&
                 <div>{renderCategories(state.categories)}</div>
             }
-        </div>
+        </StyledMainContainer>
     )
 }

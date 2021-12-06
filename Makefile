@@ -6,6 +6,7 @@ version ?= $(shell jq .version package.json)
 
 sass:
 		sass ${PWD}/src/sass/jal.sass ${PWD}/dist/public/css/style.css
+		sass ${PWD}/src/sass/styles.sass ${PWD}/dist/public/css/styles.css
 
 prod_build: sass
 		docker build \

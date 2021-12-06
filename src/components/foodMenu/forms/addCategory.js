@@ -1,13 +1,19 @@
-import React, { useState } from 'react'
-import { useForm } from 'react-hook-form'
-import { SubmitButton, ToggleFormButton } from '../../elements/buttons/main'
-import { StyledEditForm } from '../styles/formStyles'
+import React, { useState } from "react"
+import { useForm } from "react-hook-form"
+import { SubmitButton, ToggleButton } from "../../elements/buttons/main"
+import { StyledEditForm } from "../styles/formStyles"
 
-const required = { required: 'Required' }
+const CONFIG = require("../../content/config.json")
+const COLORS = CONFIG.colors
+const required = { required: "Required" }
 
 const reqHeaders = {
-    'Accept': 'application/json',
-    'Content-Type': 'application/json'
+    "Accept": "application/json",
+    "Content-Type": "application/json"
+}
+
+function makeSlug(name) {
+    return name.replace(/ /g, "-").toLowerCase()
 }
 
 export const NewCategoryForm = (props) => {
@@ -26,9 +32,11 @@ export const NewCategoryForm = (props) => {
         setState({ showForm: false })
     }
 
-    const successCreate = () => {
+    const successCreate = (name) => {
         setState({ showForm: false, categoryCreated: true })
-        props.runFunction()
+        props.hideForm()
+        props.reRenderFunction()
+        alert(`Category ${name} created`)
     }
 
     const failedCreate = () => {
@@ -36,17 +44,16 @@ export const NewCategoryForm = (props) => {
     }
 
     const onSubmit = values => {
-        fetch(`${props.api}/categories`, {
-            method: 'POST',
+        fetch(`food/categories`, {
+            method: "POST",
             headers: reqHeaders,
             body: JSON.stringify({
                 name: values.categoryName,
-                is_active: values.isActive
+                is_active: values.isActive,
+                slug: makeSlug(values.categoryName)
             })
         })
-        .catch(err => {
-            alert('Network error: ' + err)
-        })
+        .catch(err => { alert("Network error: " + err) })
         .then(response => {
             if (!response.ok) {
                 return response.json().then(
@@ -55,28 +62,26 @@ export const NewCategoryForm = (props) => {
             return response //UPDATE HERE
         })
         .then(data => {
-            console.log('Category Create Status: ' + data.status)
+            console.log("Category Create Status: " + data.status)
             if (data.status === 200) {
-                successCreate()
+                successCreate(values.categoryName)
             } else {
                 failedCreate()
             }
         })
         .catch(err => {
-            console.error('WTF ' + err)
+            console.error("New category form " + err)
             failedCreate()
         })
     }
 
     return (
-        <div>
-            <ToggleFormButton runFunction={displayForm} buttonText="Foo Cancel"/>
-        {state.showForm &&
-        <StyledEditForm>
-            <h2>Create Category</h2>
+        <StyledEditForm boxShadow={props.boxShadow} aria-labelledby="Add category form">
+            <h2>New Menu Section</h2>
             <form onSubmit={handleSubmit(onSubmit)}>
-                <input name='categoryName' placeholder='Name' ref={register(required)} text="Hello Asshole" />
-                <label htmlFor="isActive">Active?</label>
+                <input className="inputField" name="categoryName" placeholder="Name" ref={register(required)}/>
+                <div className="checkField">
+                    <label htmlFor="isActive">{"Active? (Sections marked active are shown on live menu)"}</label>
                     <input
                         className="check"
                         type="checkbox"
@@ -85,22 +90,15 @@ export const NewCategoryForm = (props) => {
                         defaultChecked={true}
                         ref={register}
                     />
-                <SubmitButton buttonText='Create' />
-                <ToggleFormButton runFunction={hideForm} />
+                </div>
+                <div className="alignHorizontally autoMargin">
+                    <SubmitButton bgColor={COLORS.dodgerBlue} buttonText="Create"/>
+                    <ToggleButton bgColor={COLORS.red} runFunction={props.hideForm} buttonText="Cancel"/>
+                </div>
             </form>
             {state.failedCreate &&
                 <h3>Create Failed</h3>
             }
         </StyledEditForm>
-        }
-        <div>
-            {state.categoryCreated &&
-            <div>
-            <h2>Category Created</h2>
-            <a href="/dashboard">Proceed To Dashboard</a>
-            </div>
-            }
-        </div>
-        </div>
     )
 }
