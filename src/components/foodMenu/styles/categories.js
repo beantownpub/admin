@@ -1,41 +1,60 @@
 import styled from 'styled-components'
 
+const CONFIG = require('../../content/config.json')
+const COLORS = CONFIG.colors
+const FONTS = CONFIG.fonts
+
 export const StyledCategoryCard = styled.div`
-    margin: 1rem auto;
-    padding: .5rem;
+    background-color: ${props => props.backgroundColor || COLORS.antiFlashWhite };
+    border: .25rem solid ${props => props.borderColor || COLORS.spanishGray };
+    border-radius: ${props => props.borderRadius || ".75rem"};
     display: flex;
     flex-flow: column wrap;
+    font-family: ${props => props.font || FONTS.poppins};
+    font-weight: ${props => props.fontWeight || "700"};
+    margin: 1rem auto;
+    padding: .5rem;
     width: ${props => props.width || "99%"};
-    font-family: ${props => props.font || "gotham"};
-    font-weight: ${props => props.fontWeight || "bold"}
-    border: 2px solid ${props => props.borderColor || "#000000"};
-    border-radius: ${props => props.borderRadius || "6px"};
-    background-color: ${props => props.backgroundColor || "gainsboro"};
+    .categoryName {
+        color: ${COLORS.red};
+        padding-left: .5rem;
+    }
     .isActive {
-        padding: 1rem;
-        font-weight: bold;
-        display: grid;
-        grid-template-columns: 50px 50px;
-        grid-column-gap: 15px;
+        display: flex;
+        flex-flow: row nowrap;
+        width: 100%;
         .active {
-            color: green;
+            padding-left: .5rem;
+            h4 {
+                color: ${COLORS.green};
+            }
         }
         .notActive {
-            color: red;
+            padding-left: .5rem;
+            h4 {
+                color: ${COLORS.red};
+            }
         }
     }
-    .buttonsDisplay {
+    .itemsBorder {
+        border: .15rem solid ${COLORS.black};
+        border-radius: .75rem;
         display: flex;
-        flex-flow: row wrap;
+        flex-flow: column wrap;
+        margin: 1rem auto;
+        padding: .5rem;
+        width: 95%;
     }
     h2 {
+        color: ${props => props.h2Color || COLORS.red };
         margin: 0 auto;
-        padding: .25rem;
-        border-bottom: 1px solid black;
-        font-family: gotham-narrow-ultra;
-        font-size: 1.5rem;
-        letter-spacing: .5rem;
+        font-family: ${props => props.font || FONTS.poppins};
+        font-size: 1.25rem;
+        letter-spacing: .25rem;
+        text-align: center;
         text-transform: uppercase;
+        width: min-content;
+        min-width: 20rem;
     }
     h3 {
         font-family: gotham;
@@ -44,11 +63,11 @@ export const StyledCategoryCard = styled.div`
         text-transform: none;
     }
     h4 {
-        font-family: gotham;
+        font-family: ${props => props.font || FONTS.poppins};
         font-size: 1.25rem;
-        color: red;
+        color: ${COLORS.black};
         letter-spacing: .25rem;
-        text-transform: none;
+        text-transform: uppercase;
     }
 `
 
@@ -57,9 +76,9 @@ export const StyledSectionContainer = styled.div`
     padding: unset;
     display: flex;
     flex-flow: column wrap;
-    border: 1px solid black;
+    border: .75rem solid ${COLORS.black};
     border-radius: 6px;
-    background-color: whitesmoke;
+    background-color: ${COLORS.white};
     width: 100%;
     h1 {
         margin: auto;
@@ -73,26 +92,11 @@ export const StyledItemsContainer = styled.div`
     margin: 1rem auto;
     display: flex;
     flex-flow: column wrap;
-    border-top: 1px solid black;
+    border-radius: .5rem;
     width: 100%;
     .newItemFormButton {
         margin: .5rem auto;
         padding: 1rem;
         width: 100%;
-    }
-`
-
-export const StyledButton = styled.div`
-    button {
-        margin: .5rem;
-        width: 10rem;
-        height: 3rem;
-        background-color: blue;
-        font-family: gotham;
-        text-transform: uppercase;
-        letter-spacing: .25rem;
-        color: white;
-        border: none;
-        border-radius: 6px;
     }
 `

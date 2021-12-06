@@ -1,12 +1,39 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { StyledCategoryCard, StyledItemsContainer } from './styles/categories'
-import { DeleteButton, } from '../elements/buttons/main'
 import { NewItemForm } from './forms/addItem'
 import { EditCategoryForm } from './forms/editCategory'
 import { ItemCard } from './items'
+import { ToggleButton } from '../elements/buttons/main'
 
+const CONFIG = require('../content/config.json')
+const COLORS = CONFIG.colors
+
+function makeSingular(name) {
+    return name.replace(/ees$/, 'ee').replace(/es$/, '').replace(/s$/, '')
+}
 
 export const CategoryCard = (props) => {
+    const [state, setState] = useState({
+        showItems: false,
+        showNewItemForm: false
+    })
+
+    const displayItems = () => {
+        setState({ showItems: true })
+    }
+
+    const hideItems = () => {
+        setState({ showItems: false })
+    }
+
+    const displayForm = () => {
+        setState({ showNewItemForm: true })
+    }
+
+    const hideForm = () => {
+        setState({ showNewItemForm: false })
+    }
+
     const renderItems = () => {
         let items = ''
         // console.log('ITEMS: ' + props.items)
@@ -26,9 +53,6 @@ export const CategoryCard = (props) => {
         }
         return (
             <StyledItemsContainer aria-labelledby="Items Container">
-                <div className="newItemFormButton">
-                    <NewItemForm showForm={props.showForm} runFunction={props.runFunction} category={props.name}/>
-                </div>
                 {items}
             </StyledItemsContainer>
         )
@@ -36,26 +60,40 @@ export const CategoryCard = (props) => {
 
     return (
         <StyledCategoryCard aria-labelledby="Category Card">
-            <h2>{props.name}</h2>
+            <div className="alignHorizontally">
+                <h4>Section</h4>
+                <h4 className="categoryName"> {props.name}</h4>
+            </div>
             <div className="isActive">
-                <div>Active</div>
+                <h4>Status</h4>
                 {props.isActive &&
-                    <div className="active">Yes</div>
+                    <div className="active"><h4> Enabled</h4></div>
                 }
                 {!props.isActive &&
-                    <div className="notActive">No</div>
+                    <div className="notActive"><h4> Disabled</h4></div>
                 }
             </div>
-            <div className="buttonsDisplay">
-            <DeleteButton name={props.name} runFunction={props.runFunction} endPoint="food/categories" />
             <EditCategoryForm
                 showForm={props.form}
                 runFunction={props.runFunction}
                 name={props.name}
                 isActive={props.isActive}
+                slug={props.slug}
             />
+            <div className="itemsBorder">
+            <h2>{makeSingular(props.name)} Items</h2>
+            <div className="alignHorizontally autoMargin">
+                <ToggleButton bgColor={COLORS.dodgerBlue} runFunction={displayItems} buttonText="Show Items"/>
+                <ToggleButton bgColor={COLORS.dodgerBlue} runFunction={hideItems} buttonText="Hide Items"/>
+                <ToggleButton bgColor={COLORS.dodgerBlue} runFunction={displayForm} buttonText="Add New Item"/>
             </div>
-            <div>{renderItems()}</div>
+            {state.showNewItemForm &&
+                <NewItemForm showForm={props.showForm} hideForm={hideForm} runFunction={props.runFunction} category={props.name}/>
+            }
+            {state.showItems &&
+                <div>{renderItems()}</div>
+            }
+            </div>
         </StyledCategoryCard>
     )
 }

@@ -1,7 +1,10 @@
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { SubmitButton, ToggleFormButton } from '../../elements/buttons/main'
+import { SubmitButton, ToggleButton } from '../../elements/buttons/main'
 import { StyledEditForm, StyledCreateComplete } from '../styles/formStyles'
+
+const CONFIG = require('../../content/config.json')
+const COLORS = CONFIG.colors
 
 const required = { required: 'Required' }
 
@@ -26,18 +29,12 @@ export const NewItemForm = (props) => {
     })
     const { handleSubmit, register, errors, reset } = useForm()
 
-    const displayForm = () => {
-        setState({ showForm: true })
-    }
-
-    const hideForm = () => {
-        setState({ showForm: false })
-    }
-
-    const successCreate = () => {
+    const successCreate = (name) => {
         console.log('New item created')
         setState({ showForm: false, itemCreated: true })
+        props.hideForm()
         props.runFunction()
+        alert(`Food item ${name} created`)
     }
 
     const failedCreate = () => {
@@ -58,9 +55,7 @@ export const NewItemForm = (props) => {
                 slug: makeSlug(values.itemName)
             })
         })
-        .catch(err => {
-            alert('Network error: ' + err)
-        })
+        .catch(err => { alert('Network error: ' + err) })
         .then(response => {
             if (!response.ok) {
                 return response.json().then(
@@ -71,7 +66,7 @@ export const NewItemForm = (props) => {
         .then(data => {
             console.log('Item Create Status: ' + data.status)
             if (data.status === 200) {
-                successCreate()
+                successCreate(values.itemName)
             } else {
                 failedCreate()
             }
@@ -84,13 +79,12 @@ export const NewItemForm = (props) => {
 
     return (
         <div>
-            <ToggleFormButton runFunction={displayForm} buttonText={`Add ${props.category}`}/>
-        {state.showForm &&
         <StyledEditForm aria-labelledby="Add food item form">
-            <h2>Add New {props.category}</h2>
+            <h2>Add New {makeSingular(props.category)}</h2>
             <form onSubmit={handleSubmit(onSubmit)}>
-                <input name='itemName' placeholder='Name' ref={register(required)} text="Hello" />
-                <label htmlFor="isActive">Active?</label>
+                <input className="inputField" name='itemName' placeholder='Name' ref={register(required)}/>
+                <div className="checkField">
+                    <label htmlFor="isActive">{"Active? (Items marked active are shown on live menu)"}</label>
                     <input
                         className="check"
                         type="checkbox"
@@ -99,8 +93,9 @@ export const NewItemForm = (props) => {
                         defaultChecked={true}
                         ref={register}
                     />
+                </div>
                 <label htmlFor="isActive">Price</label>
-                <input name='itemPrice' placeholder='0.00' ref={register(required)} text="Hello" />
+                <input className="inputField" name='itemPrice' placeholder='0.00' ref={register(required)} text="Hello" />
                 <label htmlFor="description">Description</label>
                 <textarea
                     name='description'
@@ -108,21 +103,15 @@ export const NewItemForm = (props) => {
                     columns='50'
                     ref={register({ required: 'Required'})}
                 ></textarea>
-                <SubmitButton buttonText={`Add ${makeSingular(props.category)}`} />
-                <ToggleFormButton runFunction={hideForm} buttonText="Cancel" />
+                <div className="alignHorizontally autoMargin">
+                    <SubmitButton bgColor={COLORS.pastelGreen} buttonText="Add Item" />
+                    <ToggleButton bgColor={COLORS.red} runFunction={props.hideForm} buttonText="Cancel" />
+                </div>
             </form>
             {state.failedCreate &&
                 <h3>Create Failed</h3>
             }
         </StyledEditForm>
-        }
-        <div>
-            {state.itemCreated &&
-                <StyledCreateComplete>
-                <h2>Item Created</h2>
-                </StyledCreateComplete>
-            }
-        </div>
         </div>
     )
 }

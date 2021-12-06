@@ -1,11 +1,14 @@
 import styled from 'styled-components'
 
+const CONFIG = require('../../content/config.json')
+const COLORS = CONFIG.colors
+
 export const StyledItem = styled.div`
     margin: .25rem auto;
     padding: .5rem;
     display: flex;
     flex-flow: row wrap;
-    border: 1px solid black;
+    border: 1px solid ${COLORS.black};
     border-radius: 4px;
     background: #fafafa;
     width: 99%;
@@ -18,20 +21,20 @@ export const StyledItem = styled.div`
     }
     table {
         width: 100%;
-        border: 1px solid #000000;
+        border: 1px solid ${COLORS.black};
         border-radius: 4px;
         td {
-            border: 1px solid #000000;
+            border: 1px solid ${COLORS.black};
             border-radius: 2px;
             padding: .25rem;
             text-align: center;
         }
         th {
-            background-color: #000000;
-            border: 1px solid #000000;
+            background-color: ${COLORS.black};
+            border: 1px solid ${COLORS.black};
             border-radius: 2px;
             font-weight: bold;
-            color: white;
+            color: ${COLORS.white};
         }
     }
     .active {
@@ -54,4 +57,5 @@ export const StyledItem = styled.div`
         text-align: left;
         text-transform: none;
     }
+
 `

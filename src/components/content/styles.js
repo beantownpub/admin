@@ -329,49 +329,21 @@ export const StyledLinkButton = styled.div`
     }
 `
 
-export const StyledHero = styled.div`
-    margin: 5rem auto 0 auto;
-    width: 100%;
-    height: 420px;
-    display: flex;
-    background-image: url(${props => props.image || "https://static.dev.beantownpub.com/img/main_bg.jpg"});
-    background-size: cover;
-    background-position: center;
-    h1 {
-        margin: auto;
-        max-width: 80%;
-        font-family: gotham-narrow-ultra;
-        font-size: 3.5rem;
-        text-transform: uppercase;
-        letter-spacing: .2em;
-        color: whitesmoke;
-        text-shadow: 2px 2px 8px #000000;
-        line-height: 150%;
-    }
-    @media (min-width: 320px)
-    and (max-width: 768px)
-    and (orientation: portrait)
-    and (-webkit-min-device-pixel-ratio: 2) {
-        h1 {
-            font-size: 2rem;
-        }
-    }
-`
-
 export const StyledFooter = styled.div`
+    border-top: .2rem solid #fcba03;
+    display: flex;
     margin: auto;
     padding: 2rem 0;
     width: 100%;
-    display: flex;
-    border-top: .2rem solid #fcba03;
     footer {
-        margin: auto;
-        font-family: 'Raleway', Arial, sans-serif;
-        text-transform: uppercase;
         color: white;
+        font-family: 'Poppins', sans-serif;
+        font-weight: 600;
+        letter-spacing: .2em;
+        margin: auto;
         text-align: center;
         text-shadow: .1em .15em .35em #000000;
-        letter-spacing: .2em;
+        text-transform: uppercase;
     }
     img {
         margin: auto;
@@ -397,55 +369,7 @@ export const StyledFooter = styled.div`
     }
 `
 
-export const StyledContactForm = styled.div`
-    width: 20rem;
-    display: flex;
-    flex-flow: column wrap;
-    form {
-        display: flex;
-        flex-flow: column wrap;
-        input {
-            margin: .5rem 0;
-            padding: .5rem;
-            border: .05rem solid #e2e2e2;
-            border-radius: .4em;
-        }
-        label {
-            margin: auto .25rem;
-            font-family: gotham-narrow-ultra;
-            letter-spacing: .25rem;
-            text-transform: uppercase;
-        }
-        textarea {
-            border: .05rem solid #e2e2e2;
-            border-radius: .4rem;
-        }
-    }
-    h2 {
-        font-size: 1.5rem;
-    }
-    h3 {
-        padding: .25rem;
-        font-size: .5rem;
-        color: #000000;
-        font-family: gotham-narrow-ultra;
-        text-transform: uppercase;
-    }
-    .stateZip {
-        display: flex;
-        flex-flow: row nowrap;
-        form {
-            input {
-                margin: 0 .25em;
-            }
-        }
-    }
-    .billingAddress {
-        font-family: gotham-medium;
-        font-size: .75em;
-        font-style: italic;
-    }
-`
+
 export const StyledAnchor = styled.div`
     display: flex;
     a {

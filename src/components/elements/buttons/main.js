@@ -4,14 +4,41 @@ import { StyledButton } from './styles'
 const CONFIG = require('../../content/config.json')
 const COLORS = CONFIG.colors
 
-export const ToggleFormButton = (props) => {
+const Button = (props) => {
+    return (
+        <StyledButton
+            aria-labelledby={props.ariaLabel || "Button component"}
+            backgroundColor={props.buttonStyles.bgColor}
+            border={props.buttonStyles.border}
+            borderRadius={props.buttonStyles.borderRadius}
+            fontFamily={props.buttonStyles.fontFamily}
+            fontSize={props.buttonStyles.fontSize}
+            letterSpacing={props.buttonStyles.letterSpacing}
+            margin={props.buttonStyles.margin}
+            outerMargin={props.buttonStyles.outerMargin}
+            outerPadding={props.buttonStyles.outerPadding}
+            padding={props.buttonStyles.padding}
+            textColor={props.buttonStyles.textColor}
+            textAlign={props.buttonStyles.textAlign}
+            textDecoration={props.buttonStyles.textDecoration}
+            textTransform={props.buttonStyles.textTransform}
+            width={props.buttonStyles.width}
+        >
+            <button onClick={props.clickHandler}>{props.buttonText}</button>
+        </StyledButton>
+    )
+}
+
+export const ToggleButton = (props) => {
     const handleClick = () => {
         props.runFunction()
     }
     return (
-        <StyledButton borderColor={props.borderColor || COLORS.black} aria-labelledby="Toggle button">
-            <button onClick={handleClick}>{props.buttonText}</button>
-        </StyledButton>
+        <Button
+            clickHandler={handleClick}
+            buttonStyles={props}
+            buttonText={props.buttonText}
+        />
     )
 }
 
@@ -22,11 +49,15 @@ export const SubmitButton = (props) => {
         }
     }
     return (
-        <StyledButton borderColor={props.borderColor || COLORS.black} aria-labelledby="Submit button">
-            <button onClick={handleClick}>{props.buttonText}</button>
-        </StyledButton>
+        <Button
+            clickHandler={handleClick}
+            buttonStyles={props}
+            buttonText={props.buttonText}
+        />
     )
 }
+
+
 
 export const DeleteButton = (props) => {
     const handleClick = () => {
@@ -43,8 +74,10 @@ export const DeleteButton = (props) => {
         props.runFunction()
     }
     return (
-        <StyledButton borderColor={COLORS.black}>
-            <button onClick={handleClick}>Delete</button>
-        </StyledButton>
+        <Button
+            clickHandler={handleClick}
+            buttonStyles={props}
+            buttonText="Delete"
+        />
     )
 }

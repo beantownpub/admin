@@ -1,14 +1,15 @@
 import React from 'react'
 import { DashContainer, InfoSection } from './common'
-import { MerchDash } from '../merchMgmtUi'
-import { FoodDash } from '../foodMenu/main.js'
+// import { MerchDash } from '../merch/main'
+import { FoodDash } from '../foodMenu/main'
 // import { LinkButton } from './common'
-
+const CONFIG = require('./config.json')
+const COLORS = CONFIG.colors
 
 export const MainDash = () => {
     return (
         <div>
-            <InfoSection bgColor='#fcba03' marginTop='10rem'>
+            <InfoSection bgColor={COLORS.yellow} marginTop='10rem'>
                 <section>
                     <h1>Welcome!</h1>
                     <ul>
@@ -21,10 +22,19 @@ export const MainDash = () => {
     )
 }
 
+export const FoodMenuDash = () => {
+    return (
+        <DashContainer bgColor={COLORS.yellow} marginTop='5rem'>
+            <h1>Beantown Food Menu</h1>
+            <FoodDash/>
+        </DashContainer>
+    )
+}
+
 export const PartiesDash = () => {
     return (
         <div>
-            <InfoSection bgColor='#fcba03' marginTop='10rem'>
+            <InfoSection bgColor={COLORS.yellow} marginTop='10rem'>
                 <section>
                     <h1>Beantown Private Parties</h1>
                 </section>
@@ -33,26 +43,16 @@ export const PartiesDash = () => {
     )
 }
 
-export const FoodMenuDash = () => {
-    return (
-        <div>
-            <DashContainer bgColor='#fcba03' marginTop='10rem'>
-                <section>
-                    <h1>Beantown Food Menu</h1>
-                    <FoodDash/>
-                </section>
-            </DashContainer>
-        </div>
-    )
-}
+
 
 export const Merch = () => {
     return (
         <div>
-        <InfoSection bgColor='#fcba03' marginTop='10rem'>
+        <InfoSection bgColor={COLORS.yellow} marginTop='10rem'>
             <section>
                 <h1>Beantown Merchandise</h1>
-                <MerchDash/>
+                {// <MerchDash/>
+                }
             </section>
         </InfoSection>
         </div>

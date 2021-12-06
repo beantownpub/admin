@@ -1,8 +1,10 @@
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { SubmitButton, ToggleFormButton } from '../../elements/buttons/main'
-import { StyledEditForm } from '../styles/formStyles'
+import { SubmitButton, ToggleButton, DeleteButton } from '../../elements/buttons/main'
+import { StyledEditForm, StyledFormContainer } from '../styles/formStyles'
 
+const CONFIG = require('../../content/config.json')
+const COLORS = CONFIG.colors
 const required = { required: 'Required' }
 
 const reqHeaders = {
@@ -76,18 +78,21 @@ export const EditItemForm = (props) => {
     }
 
     return (
-        <div>
-            <ToggleFormButton runFunction={displayForm} buttonText="Edit"/>
+        <StyledFormContainer aria-labelledby="Edit food item form container">
+            <div className="alignButtonsHorizontally">
+                <ToggleButton bgColor={COLORS.dodgerBlue} runFunction={displayForm} buttonText="Edit"/>
+                <DeleteButton bgColor={COLORS.red} name={props.slug} runFunction={props.runFunction} endPoint={`food/items/${props.slug}`}/>
+            </div>
         {state.showForm &&
-        <StyledEditForm>
+        <StyledEditForm aria-labelledby="Edit food item form">
             <h2 className="editForm">Edit Item</h2>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <label htmlFor="itemName">Name</label>
-                <input name='itemName' defaultValue={props.name} ref={register(required)} />
-                <input name='itemSlug' defaultValue={props.slug} ref={register(required)} type="hidden" />
-                <input name='category' defaultValue={props.category} ref={register(required)} type="hidden" />
+                <input className="inputField" name='itemName' defaultValue={props.name} ref={register(required)}/>
+                <input name='itemSlug' defaultValue={props.slug} ref={register(required)} type="hidden"/>
+                <input name='category' defaultValue={props.category} ref={register(required)} type="hidden"/>
                 <div className="checkField">
-                <label htmlFor="isActive">Active?</label>
+                <label htmlFor="isActive">{"Active? (Items marked active are shown on live menu)"}</label>
                     <input
                         className="check"
                         type="checkbox"
@@ -98,7 +103,7 @@ export const EditItemForm = (props) => {
                     />
                 </div>
                 <label htmlFor="itemPrice">Price</label>
-                <input name='itemPrice' ref={register(required)} defaultValue={props.price} />
+                <input className="inputField" name='itemPrice' ref={register(required)} defaultValue={props.price}/>
                 <label htmlFor="description">Description</label>
                     <textarea
                         name='description'
@@ -107,14 +112,16 @@ export const EditItemForm = (props) => {
                         ref={register({ required: 'Required'})}
                         defaultValue={props.description}
                     ></textarea>
-                <SubmitButton runFunction={props.runFunction} buttonText="Update Item"/>
-                <ToggleFormButton runFunction={hideForm} buttonText="Cancel"/>
+                <div className="alignHorizontally autoMargin">
+                    <SubmitButton bgColor={COLORS.dodgerBlue} border={`.15rem solid ${COLORS.black}`} buttonText="Update Item" runFunction={props.runFunction}/>
+                    <ToggleButton bgColor={COLORS.red} buttonText="Cancel" runFunction={hideForm}/>
+                </div>
             </form>
             {state.failedEdit &&
                 <h3>Update Failed</h3>
             }
         </StyledEditForm>
         }
-        </div>
+        </StyledFormContainer>
     )
 }

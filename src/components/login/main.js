@@ -4,6 +4,9 @@ import MenuIcon, { getIcon } from '../content/icon'
 import { SubmitButton } from '../elements/buttons/main'
 import { StyledLoginContainer, StyledLoginForm, StyledLogin } from './styles'
 
+const CONFIG = require('../content/config.json')
+const COLORS = CONFIG.colors
+
 
 const REQUIRED = {
     required: 'Required'
@@ -72,7 +75,7 @@ export const LoginForm = (props) => {
             }
         })
         .catch(err => {
-            console.error('WTF ' + err)
+            console.error('LoginForm ' + err)
             failedLogin()
         })
     }
@@ -84,7 +87,7 @@ export const LoginForm = (props) => {
         <StyledLoginForm>
             <h2>
                 <MenuIcon
-                    style={{fontSize: '.75rem', margin: 'auto', color: 'white'}}
+                    style={{fontSize: '1.25rem', margin: 'auto', color: 'white'}}
                     name={getIcon('faLock')}
                 /> Secure Login
             </h2>
@@ -93,7 +96,7 @@ export const LoginForm = (props) => {
                 <h3>{errors.userName && errors.userName.message}</h3>
                 <input name='passWord' placeholder='Password' type='password' ref={register(REQUIRED)} />
                 <h3>{errors.passWord && errors.passWord.message}</h3>
-                <SubmitButton borderColor='#e2e2e2' buttonText='Login' />
+                <SubmitButton bgColor={COLORS.yellow} border={`1px solid ${COLORS.white}`} buttonText='Login' textColor={COLORS.black}/>
             </form>
             {state.failedLogin &&
                 <h3>Login Failed</h3>
@@ -103,8 +106,8 @@ export const LoginForm = (props) => {
         <div>
             {state.loggedIn &&
             <StyledLogin>
-            <h2>Hello {state.username}</h2>
-            <a href="/dashboard">Proceed To Dashboard</a>
+                <h2>Login complete!</h2>
+                <a href="/food">Manage Beantown Menu</a>
             </StyledLogin>
             }
         </div>
