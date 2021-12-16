@@ -1,6 +1,6 @@
 {
-  "name": "node-jal",
-  "version": "0.1.4",
+  "name": "node-jal-admin",
+  "version": "0.1.5",
   "private": true,
   "scripts": {
     "start": "node ./bin/server",

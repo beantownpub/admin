@@ -20,6 +20,6 @@ dev_build: sass
 			--build-arg square_app_id=${SQUARE_APP_ID} \
 			--build-arg node_env=development .
 
-publish: build
+publish: dev_build
 		docker tag $(image_name):$(version) $(dockerhub)/$(image_name):$(version)
 		docker push $(dockerhub)/$(image_name):$(version)
