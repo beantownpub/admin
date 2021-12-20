@@ -1,9 +1,7 @@
 import React from 'react'
-import {
-    StyledAnchor,
-    StyledInfo,
-    StyledLinkButton,
-    StyledFooter } from './styles'
+import { StyledFooter } from './styles/footer'
+import { StyledInfo } from './styles/info'
+import { StyledAnchor, StyledLinkButton } from './styles'
 import { StyledDashContainer } from './styles/dashboard'
 
 export const DashContainer = (props) => {

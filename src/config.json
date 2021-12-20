@@ -34,25 +34,25 @@
                 "keywords": "",
                 "description": "Beantown admin",
                 "menu_list": true,
-                "top_menu": true
+                "top_menu": false
             },
-            "food": {
-                "name": "food",
+            "Beantown Pub": {
+                "name": "dashboard",
                 "icon": "faUtensils",
-                "text": "Food",
-                "title": "Beantown Menu",
+                "text": "Beantown Pub",
+                "title": "Beantown Pub Dash",
                 "keywords": "",
-                "description": "Beantown Pub menu, serving food late night",
+                "description": "",
                 "menu_list": true,
                 "top_menu": true
             },
-            "private parties": {
-                "name": "parties",
+            "The Hub Pub": {
+                "name": "dashboards/thehubpub",
                 "icon": "faCalendar",
-                "text": "Parties",
-                "title": "Parties",
+                "text": "The Hub Pub",
+                "title": "The Hub Pub Dash",
                 "keywords": "",
-                "description": "Beantown Pub private parties",
+                "description": "",
                 "menu_list": true,
                 "top_menu": true
             },
@@ -63,8 +63,8 @@
                 "title": "Merch",
                 "keywords": "beantown pub, tshirts, sweatshirts, hats, glasses, souvenirs",
                 "description": "Beantown Pub Merch",
-                "menu_list": true,
-                "top_menu": true
+                "menu_list": false,
+                "top_menu": false
             },
             "facebook": {
                 "name": "https://www.facebook.com/BeantownPubMA/",

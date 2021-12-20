@@ -1,10 +1,11 @@
 import React from 'react'
+import Popup from "react-popup"
 import { StyledButton } from './styles'
 
 const CONFIG = require('../../content/config.json')
 const COLORS = CONFIG.colors
 
-const Button = (props) => {
+export const Button = (props) => {
     return (
         <StyledButton
             aria-labelledby={props.ariaLabel || "Button component"}
@@ -53,31 +54,6 @@ export const SubmitButton = (props) => {
             clickHandler={handleClick}
             buttonStyles={props}
             buttonText={props.buttonText}
-        />
-    )
-}
-
-
-
-export const DeleteButton = (props) => {
-    const handleClick = () => {
-        const options = {
-            method: 'DELETE',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({
-                name: props.name
-            })
-        }
-        fetch(props.endPoint, options)
-            .then(response => response.json())
-            .catch(error => console.log(error))
-        props.runFunction()
-    }
-    return (
-        <Button
-            clickHandler={handleClick}
-            buttonStyles={props}
-            buttonText="Delete"
         />
     )
 }

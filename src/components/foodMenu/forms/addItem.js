@@ -1,16 +1,17 @@
-import React, { useState } from 'react'
-import { useForm } from 'react-hook-form'
-import { SubmitButton, ToggleButton } from '../../elements/buttons/main'
-import { StyledEditForm, StyledCreateComplete } from '../styles/formStyles'
+import React, { useState } from "react"
+import { useForm } from "react-hook-form"
+import Popup from "react-popup"
+import { SubmitButton, ToggleButton } from "../../elements/buttons/main"
+import { StyledEditForm } from "../styles/formStyles"
 
-const CONFIG = require('../../content/config.json')
+const CONFIG = require("../../content/config.json")
 const COLORS = CONFIG.colors
 
-const required = { required: 'Required' }
+const required = { required: "Required" }
 
 const reqHeaders = {
-    'Accept': 'application/json',
-    'Content-Type': 'application/json'
+    "Accept": "application/json",
+    "Content-Type": "application/json"
 }
 
 function makeSlug(name) {
@@ -18,7 +19,7 @@ function makeSlug(name) {
 }
 
 function makeSingular(name) {
-    return name.replace(/ees$/, 'ee').replace(/es$/, '').replace(/s$/, '')
+    return name.replace(/ees$/, "ee").replace(/es$/, "").replace(/s$/, "")
 }
 
 export const NewItemForm = (props) => {
@@ -30,21 +31,22 @@ export const NewItemForm = (props) => {
     const { handleSubmit, register, errors, reset } = useForm()
 
     const successCreate = (name) => {
-        console.log('New item created')
+        console.log("New item created")
         setState({ showForm: false, itemCreated: true })
         props.hideForm()
         props.runFunction()
-        alert(`Food item ${name} created`)
+        Popup.alert(`Food item ${name} created`)
     }
 
     const failedCreate = () => {
-        console.log('New item creation failed')
+        console.log("New item creation failed")
         setState({ showForm: true, failedCreate: true })
     }
 
     const onSubmit = values => {
+        console.log('Submitting new food item')
         fetch(`food/items`, {
-            method: 'POST',
+            method: "POST",
             headers: reqHeaders,
             body: JSON.stringify({
                 category_id: props.category,
@@ -52,10 +54,11 @@ export const NewItemForm = (props) => {
                 is_active: values.isActive,
                 name: values.itemName,
                 price: values.itemPrice,
-                slug: makeSlug(values.itemName)
+                slug: makeSlug(values.itemName),
+                location: values.location
             })
         })
-        .catch(err => { alert('Network error: ' + err) })
+        .catch(err => { alert("Network error: " + err) })
         .then(response => {
             if (!response.ok) {
                 return response.json().then(
@@ -64,7 +67,7 @@ export const NewItemForm = (props) => {
             return response //UPDATE HERE
         })
         .then(data => {
-            console.log('Item Create Status: ' + data.status)
+            console.log("Item Create Status: " + data.status)
             if (data.status === 200) {
                 successCreate(values.itemName)
             } else {
@@ -72,7 +75,7 @@ export const NewItemForm = (props) => {
             }
         })
         .catch(err => {
-            console.error('Create onSubmit ' + err)
+            console.error("Create onSubmit " + err)
             failedCreate()
         })
     }
@@ -82,7 +85,8 @@ export const NewItemForm = (props) => {
         <StyledEditForm aria-labelledby="Add food item form">
             <h2>Add New {makeSingular(props.category)}</h2>
             <form onSubmit={handleSubmit(onSubmit)}>
-                <input className="inputField" name='itemName' placeholder='Name' ref={register(required)}/>
+                <input className="inputField" name="itemName" placeholder="Name" ref={register(required)}/>
+                <input name="location" defaultValue={props.location} ref={register(required)} type="hidden"/>
                 <div className="checkField">
                     <label htmlFor="isActive">{"Active? (Items marked active are shown on live menu)"}</label>
                     <input
@@ -95,13 +99,13 @@ export const NewItemForm = (props) => {
                     />
                 </div>
                 <label htmlFor="isActive">Price</label>
-                <input className="inputField" name='itemPrice' placeholder='0.00' ref={register(required)} text="Hello" />
+                <input className="inputField" name="itemPrice" placeholder="0.00" ref={register(required)} text="Hello" />
                 <label htmlFor="description">Description</label>
                 <textarea
-                    name='description'
-                    rows='6'
-                    columns='50'
-                    ref={register({ required: 'Required'})}
+                    name="description"
+                    rows="6"
+                    columns="50"
+                    ref={register()}
                 ></textarea>
                 <div className="alignHorizontally autoMargin">
                     <SubmitButton bgColor={COLORS.pastelGreen} buttonText="Add Item" />

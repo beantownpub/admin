@@ -1,14 +1,20 @@
 {
     "colors": {
         "antiFlashWhite": "#f2f3f4",
+        "backgroundBeige": "beige",
         "black": "#000000",
         "blue": "#1f6696",
+        "borderGray": "#dbd9d9",
+        "boxShadowGray": "rgb(126 137 140 / 20%)",
+        "buttonBlue": "#1e90ff",
         "cyan": "#3fc5f0",
         "darkGray": "#383838",
         "dimGray": "#696969",
         "dodgerBlue": "#1e90ff",
         "gray": "#494040",
+        "okStatusGreen": "#008000",
         "green": "#008000",
+        "headerRed": "#c70039",
         "lawnGreen": "#lawngreen",
         "lightGray": "#F3F4F4",
         "navBarBlue": "rgba(5,46,102,0.90)",
@@ -25,6 +31,7 @@
         "yellow": "#fcba03"
     },
     "fonts": {
+        "gothamMedium": "gotham-medium",
         "lato": "'Lato', sans-serif",
         "poppins": "'Poppins', sans-serif"
     }

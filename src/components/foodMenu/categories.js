@@ -60,11 +60,11 @@ export const CategoryCard = (props) => {
 
     return (
         <StyledCategoryCard aria-labelledby="Category Card">
-            <div className="alignHorizontally">
+            <div className="alignHorizontally sectionInfo" aria-labelledby="Section info">
                 <h4>Section</h4>
                 <h4 className="categoryName"> {props.name}</h4>
             </div>
-            <div className="isActive">
+            <div className="isActive sectionInfo">
                 <h4>Status</h4>
                 {props.isActive &&
                     <div className="active"><h4> Enabled</h4></div>
@@ -79,6 +79,7 @@ export const CategoryCard = (props) => {
                 name={props.name}
                 isActive={props.isActive}
                 slug={props.slug}
+                location={props.location}
             />
             <div className="itemsBorder">
             <h2>{makeSingular(props.name)} Items</h2>
@@ -88,7 +89,7 @@ export const CategoryCard = (props) => {
                 <ToggleButton bgColor={COLORS.dodgerBlue} runFunction={displayForm} buttonText="Add New Item"/>
             </div>
             {state.showNewItemForm &&
-                <NewItemForm showForm={props.showForm} hideForm={hideForm} runFunction={props.runFunction} category={props.name}/>
+                <NewItemForm category={props.name} hideForm={hideForm} location={props.location} runFunction={props.runFunction} showForm={props.showForm}/>
             }
             {state.showItems &&
                 <div>{renderItems()}</div>

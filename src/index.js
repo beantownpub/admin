@@ -1,9 +1,11 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+import Popup from 'react-popup'
 import { LoginForm } from './components/login/main'
 import { MainDash, PartiesDash, FoodMenuDash, Merch } from './components/content/main'
 import { Footer } from './components/content/common'
 import { TopMenuBar, LinkList, TopNavBar, linkProps } from './components/topBar/main'
+import Routes from './reactRoutes'
 const config = require('./config.json')
 const pages = config.beantown.pages
 const staticURL = config.beantown.static_url
@@ -53,6 +55,16 @@ ReactDOM.render(
 ReactDOM.render(
     <Footer/>,
     document.getElementById('footer')
+)
+
+// ReactDOM.render(
+//     <Routes />,
+//    document.getElementById('app')
+//)
+
+ReactDOM.render(
+    <Popup />,
+    document.getElementById('popupContainer')
 )
 
 if (document.getElementById('loginForm')) {

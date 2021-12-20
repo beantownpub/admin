@@ -49,10 +49,10 @@ export const FoodDash = () => {
                 name={category.name}
                 isActive={category.is_active}
                 items={category.items}
-                slug={category.slug}
+                location="beantown"
                 runFunction={updateCategories}
                 showForm={displayForm}
-                api="food"
+                slug={category.slug}
             />
         )
         return (
@@ -74,7 +74,7 @@ export const FoodDash = () => {
                 textColor={COLORS.black}
             />
             {state.showNewCategoryForm &&
-                <NewCategoryForm boxShadow="unset" hideForm={hideForm} reRenderFunction={updateCategories}/>
+                <NewCategoryForm boxShadow="unset" hideForm={hideForm} location="beantown" reRenderFunction={updateCategories}/>
             }
             {state.categories &&
                 <div>{renderCategories(state.categories)}</div>

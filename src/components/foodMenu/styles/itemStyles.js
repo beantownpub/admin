@@ -2,39 +2,43 @@ import styled from 'styled-components'
 
 const CONFIG = require('../../content/config.json')
 const COLORS = CONFIG.colors
+const FONTS = CONFIG.fonts
 
 export const StyledItem = styled.div`
-    margin: .25rem auto;
-    padding: .5rem;
+    background: #fafafa;
+    border: 1px solid ${COLORS.borderGray};
+    border-radius: 4px;
+    box-shadow: ${props => props.boxShadow || `0px 5px 20px 0px ${COLORS.boxShadowGray}`};
     display: flex;
     flex-flow: row wrap;
-    border: 1px solid ${COLORS.black};
-    border-radius: 4px;
-    background: #fafafa;
+    margin: .25rem auto;
+    padding: .5rem;
     width: 99%;
     h2 {
-        margin: auto;
-        letter-spacing: .25rem;
         border: unset;
-        font-family: 'Raleway', Arial, sans-serif;
-        color: red;
+        color: ${COLORS.headerRed};
+        font-family: ${FONTS.poppins};
+        font-weight: 800;
+        letter-spacing: .25rem;
+        margin: auto;
+        padding: .5rem;
     }
     table {
         width: 100%;
-        border: 1px solid ${COLORS.black};
         border-radius: 4px;
+        box-shadow: ${props => props.boxShadow || `0px 5px 20px 0px ${COLORS.boxShadowGray}`};
         td {
-            border: 1px solid ${COLORS.black};
+            border: 1px solid ${COLORS.borderGray};
             border-radius: 2px;
             padding: .25rem;
             text-align: center;
         }
         th {
             background-color: ${COLORS.black};
-            border: 1px solid ${COLORS.black};
             border-radius: 2px;
-            font-weight: bold;
             color: ${COLORS.white};
+            font-weight: bold;
+            padding: .25rem;
         }
     }
     .active {

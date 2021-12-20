@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { SubmitButton, ToggleButton, DeleteButton } from '../../elements/buttons/main'
+import { DeleteButton } from '../../elements/buttons/delete'
+import { SubmitButton, ToggleButton } from '../../elements/buttons/main'
 import { StyledEditForm, StyledFormContainer } from '../styles/formStyles'
 
 const CONFIG = require('../../content/config.json')
@@ -38,6 +39,8 @@ export const EditCategoryForm = (props) => {
         setState({ showForm: true, failedEdit: true })
     }
 
+    const endPoint = `food/categories/${props.slug}`
+
     const onSubmit = values => {
         fetch(`food/categories/${values.itemSlug}`, {
             method: 'put',
@@ -45,7 +48,8 @@ export const EditCategoryForm = (props) => {
             body: JSON.stringify({
                 name: values.categoryName,
                 is_active: values.isActive,
-                slug: values.itemSlug
+                slug: values.itemSlug,
+                location: values.location
             })
         })
         .catch(err => {
@@ -75,7 +79,7 @@ export const EditCategoryForm = (props) => {
     return (
         <StyledFormContainer aria-labelledby="Edit form container">
             <div className="alignHorizontally">
-                <DeleteButton bgColor={COLORS.red} name={props.slug} runFunction={props.runFunction} endPoint={`food/categories/${props.slug}`} />
+                <DeleteButton bgColor={COLORS.red} name={props.slug} runFunction={props.runFunction} endPoint={endPoint} itemType="category"/>
                 <ToggleButton bgColor={COLORS.dodgerBlue} runFunction={displayForm} buttonText="Edit" />
             </div>
         {state.showForm &&
@@ -85,6 +89,7 @@ export const EditCategoryForm = (props) => {
                 <label htmlFor="categoryName">Section Name</label>
                 <input className="inputField" name='categoryName' defaultValue={props.name} ref={register(required)} />
                 <input name='itemSlug' defaultValue={props.slug} ref={register(required)} type="hidden"/>
+                <input name='location' defaultValue={props.location} ref={register(required)} type="hidden"/>
                 <div className="checkField">
                 <label htmlFor="isActive">{"Active? (Sections marked active are shown on live menu)"}</label>
                     <input
@@ -96,6 +101,14 @@ export const EditCategoryForm = (props) => {
                         ref={register}
                     />
                 </div>
+                <label htmlFor="description">Description</label>
+                    <textarea
+                        name='description'
+                        rows='6'
+                        columns='50'
+                        ref={register()}
+                        defaultValue={props.description}
+                    ></textarea>
                 <div className="alignHorizontally autoMargin">
                     <SubmitButton bgColor={COLORS.dodgerBlue} buttonText="Update" runFunction={props.runFunction}/>
                     <ToggleButton bgColor={COLORS.red} buttonText="Cancel" runFunction={hideForm}/>
@@ -109,3 +122,4 @@ export const EditCategoryForm = (props) => {
         </StyledFormContainer>
     )
 }
+

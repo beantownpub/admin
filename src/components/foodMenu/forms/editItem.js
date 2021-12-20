@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { SubmitButton, ToggleButton, DeleteButton } from '../../elements/buttons/main'
+import { DeleteButton } from '../../elements/buttons/delete'
+import { SubmitButton, ToggleButton } from '../../elements/buttons/main'
 import { StyledEditForm, StyledFormContainer } from '../styles/formStyles'
 
 const CONFIG = require('../../content/config.json')
@@ -81,7 +82,7 @@ export const EditItemForm = (props) => {
         <StyledFormContainer aria-labelledby="Edit food item form container">
             <div className="alignButtonsHorizontally">
                 <ToggleButton bgColor={COLORS.dodgerBlue} runFunction={displayForm} buttonText="Edit"/>
-                <DeleteButton bgColor={COLORS.red} name={props.slug} runFunction={props.runFunction} endPoint={`food/items/${props.slug}`}/>
+                <DeleteButton bgColor={COLORS.red} name={props.slug} runFunction={props.runFunction} endPoint={`food/items/${props.slug}`} itemType="food item"/>
             </div>
         {state.showForm &&
         <StyledEditForm aria-labelledby="Edit food item form">
@@ -109,7 +110,7 @@ export const EditItemForm = (props) => {
                         name='description'
                         rows='6'
                         columns='50'
-                        ref={register({ required: 'Required'})}
+                        ref={register()}
                         defaultValue={props.description}
                     ></textarea>
                 <div className="alignHorizontally autoMargin">

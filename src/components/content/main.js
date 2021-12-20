@@ -2,29 +2,55 @@ import React from 'react'
 import { DashContainer, InfoSection } from './common'
 // import { MerchDash } from '../merch/main'
 import { FoodDash } from '../foodMenu/main'
-// import { LinkButton } from './common'
+import { StyledDashContainer } from './styles/dashboard'
 const CONFIG = require('./config.json')
 const COLORS = CONFIG.colors
 
 export const MainDash = () => {
     return (
-        <div>
-            <InfoSection bgColor={COLORS.yellow} marginTop='10rem'>
+        <StyledDashContainer aria-labelledby="Beantown dash">
+            <InfoSection bgColor={COLORS.backgroundBeige} marginTop='10rem'>
                 <section>
-                    <h1>Welcome!</h1>
+                    <h1>Beantown Pub</h1>
                     <ul>
-                    <li><a href="/food">Manage Beantown Food Menu</a></li>
-                    <li><a href="/food">Manage HubPub Food Menu</a></li>
+                    <li><a href="/food">Manage Food Menu</a></li>
                     </ul>
                 </section>
             </InfoSection>
-        </div>
+        </StyledDashContainer>
+    )
+}
+
+export const BeantownDash = () => {
+    return (
+        <StyledDashContainer aria-labelledby="Beantown dash">
+            <InfoSection bgColor={COLORS.backgroundBeige} marginTop='10rem'>
+                <section>
+                    <h1>Beantown Pub</h1>
+                    <ul>
+                    <li><a href="/food">Manage Food Menu</a></li>
+                    </ul>
+                </section>
+            </InfoSection>
+        </StyledDashContainer>
+    )
+}
+
+export const TheHubPubDash = () => {
+    return (
+        <StyledDashContainer aria-labelledby="Hub Pub dash">
+            <InfoSection bgColor={COLORS.backgroundBeige} marginTop='10rem'>
+                <section>
+                    <h1>The Hub Pub Dash Coming Soon</h1>
+                </section>
+            </InfoSection>
+        </StyledDashContainer>
     )
 }
 
 export const FoodMenuDash = () => {
     return (
-        <DashContainer bgColor={COLORS.yellow} marginTop='5rem'>
+        <DashContainer bgColor={COLORS.backgroundBeige} marginTop='5rem'>
             <h1>Beantown Food Menu</h1>
             <FoodDash/>
         </DashContainer>
@@ -34,7 +60,7 @@ export const FoodMenuDash = () => {
 export const PartiesDash = () => {
     return (
         <div>
-            <InfoSection bgColor={COLORS.yellow} marginTop='10rem'>
+            <InfoSection bgColor={COLORS.backgroundBeige} marginTop='10rem'>
                 <section>
                     <h1>Beantown Private Parties</h1>
                 </section>

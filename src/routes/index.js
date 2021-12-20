@@ -103,7 +103,8 @@ router.post('/auth', function (req, res, next) {
 })
 
 router.get('/healthz', function(req, res, next) {
-  res.status(200)
+  console.log(`Req: ${req.path}`)
+  res.sendStatus('ok')
 })
 
 

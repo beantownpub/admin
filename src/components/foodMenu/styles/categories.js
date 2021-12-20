@@ -6,8 +6,9 @@ const FONTS = CONFIG.fonts
 
 export const StyledCategoryCard = styled.div`
     background-color: ${props => props.backgroundColor || COLORS.antiFlashWhite };
-    border: .25rem solid ${props => props.borderColor || COLORS.spanishGray };
+    border: .25rem solid ${props => props.borderColor || COLORS.borderGray };
     border-radius: ${props => props.borderRadius || ".75rem"};
+    box-shadow: ${props => props.boxShadow || `0px 5px 20px 0px ${COLORS.boxShadowGray}`};
     display: flex;
     flex-flow: column wrap;
     font-family: ${props => props.font || FONTS.poppins};
@@ -26,19 +27,23 @@ export const StyledCategoryCard = styled.div`
         .active {
             padding-left: .5rem;
             h4 {
-                color: ${COLORS.green};
+                color: ${COLORS.okStatusGreen};
             }
         }
         .notActive {
             padding-left: .5rem;
             h4 {
-                color: ${COLORS.red};
+                color: ${COLORS.headerRed};
             }
         }
     }
+    .sectionInfo {
+        padding: .25rem;
+    }
     .itemsBorder {
-        border: .15rem solid ${COLORS.black};
+        border: .15rem solid ${COLORS.borderGray};
         border-radius: .75rem;
+        box-shadow: ${props => props.boxShadow || `0px 5px 20px 0px ${COLORS.boxShadowGray}`};
         display: flex;
         flex-flow: column wrap;
         margin: 1rem auto;

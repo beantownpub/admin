@@ -1,4 +1,5 @@
 import React, { useState } from "react"
+import Popup from "react-popup"
 import { useForm } from "react-hook-form"
 import { SubmitButton, ToggleButton } from "../../elements/buttons/main"
 import { StyledEditForm } from "../styles/formStyles"
@@ -36,7 +37,7 @@ export const NewCategoryForm = (props) => {
         setState({ showForm: false, categoryCreated: true })
         props.hideForm()
         props.reRenderFunction()
-        alert(`Category ${name} created`)
+        Popup.alert(`Category ${name} created`)
     }
 
     const failedCreate = () => {
@@ -44,13 +45,15 @@ export const NewCategoryForm = (props) => {
     }
 
     const onSubmit = values => {
+        console.log('Values: ' + values)
         fetch(`food/categories`, {
             method: "POST",
             headers: reqHeaders,
             body: JSON.stringify({
                 name: values.categoryName,
                 is_active: values.isActive,
-                slug: makeSlug(values.categoryName)
+                slug: makeSlug(values.categoryName),
+                location: values.location
             })
         })
         .catch(err => { alert("Network error: " + err) })
@@ -79,6 +82,7 @@ export const NewCategoryForm = (props) => {
         <StyledEditForm boxShadow={props.boxShadow} aria-labelledby="Add category form">
             <h2>New Menu Section</h2>
             <form onSubmit={handleSubmit(onSubmit)}>
+                <input name='location' defaultValue={props.location} ref={register(required)} type="hidden"/>
                 <input className="inputField" name="categoryName" placeholder="Name" ref={register(required)}/>
                 <div className="checkField">
                     <label htmlFor="isActive">{"Active? (Sections marked active are shown on live menu)"}</label>
@@ -91,6 +95,13 @@ export const NewCategoryForm = (props) => {
                         ref={register}
                     />
                 </div>
+                <label htmlFor="description">Description</label>
+                <textarea
+                    name="description"
+                    rows="6"
+                    columns="50"
+                    ref={register()}
+                ></textarea>
                 <div className="alignHorizontally autoMargin">
                     <SubmitButton bgColor={COLORS.dodgerBlue} buttonText="Create"/>
                     <ToggleButton bgColor={COLORS.red} runFunction={props.hideForm} buttonText="Cancel"/>
