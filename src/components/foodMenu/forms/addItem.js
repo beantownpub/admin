@@ -45,7 +45,7 @@ export const NewItemForm = (props) => {
 
     const onSubmit = values => {
         console.log('Submitting new food item')
-        fetch(`food/items`, {
+        fetch(`food/items/${props.location}`, {
             method: "POST",
             headers: reqHeaders,
             body: JSON.stringify({
@@ -108,7 +108,7 @@ export const NewItemForm = (props) => {
                     ref={register()}
                 ></textarea>
                 <div className="alignHorizontally autoMargin">
-                    <SubmitButton bgColor={COLORS.pastelGreen} buttonText="Add Item" />
+                    <SubmitButton bgColor={COLORS.okStatusGreen} buttonText="Add Item" />
                     <ToggleButton bgColor={COLORS.red} runFunction={props.hideForm} buttonText="Cancel" />
                 </div>
             </form>

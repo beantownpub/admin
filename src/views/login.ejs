@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="description" content="<%= description %>">
-    <meta name="keywords" content="<%= keywords %>">
+    <meta property="og:type" content="website" />
     <title><%= title %></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0" />
     <link rel='stylesheet' href='/css/styles.css' />
@@ -12,9 +12,11 @@
   </head>
   <body>
     <div id="topBar"></div>
-    <div id="app"></div>
     <div id="popupContainer"></div>
+    <div id="loginForm"></div>
+    <div id="app"></div>
     <div id="footer"></div>
     <script src="/js/main.js"></script>
+    <script src="https://gh-prod-nitrosites.s3.amazonaws.com/scripts/iframeLib.min.js"></script>
   </body>
 </html>

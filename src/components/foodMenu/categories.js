@@ -60,19 +60,20 @@ export const CategoryCard = (props) => {
 
     return (
         <StyledCategoryCard aria-labelledby="Category Card">
-            <div className="alignHorizontally sectionInfo" aria-labelledby="Section info">
-                <h4>Section</h4>
-                <h4 className="categoryName"> {props.name}</h4>
-            </div>
-            <div className="isActive sectionInfo">
-                <h4>Status</h4>
-                {props.isActive &&
-                    <div className="active"><h4> Enabled</h4></div>
-                }
-                {!props.isActive &&
-                    <div className="notActive"><h4> Disabled</h4></div>
-                }
-            </div>
+            <table>
+                <tbody>
+                    <tr><td>Section</td><td style={{color: COLORS.dodgerBlue}}>{props.name}</td></tr>
+                    <tr>
+                        <td>Active</td>
+                        {props.isActive &&
+                            <td style={{color: COLORS.okStatusGreen}}>Yes</td>
+                        }
+                        {!props.isActive &&
+                            <td style={{color: COLORS.red}}>No</td>
+                        }
+                    </tr>
+                </tbody>
+            </table>
             <EditCategoryForm
                 showForm={props.form}
                 runFunction={props.runFunction}
@@ -81,19 +82,19 @@ export const CategoryCard = (props) => {
                 slug={props.slug}
                 location={props.location}
             />
-            <div className="itemsBorder">
-            <h2>{makeSingular(props.name)} Items</h2>
-            <div className="alignHorizontally autoMargin">
-                <ToggleButton bgColor={COLORS.dodgerBlue} runFunction={displayItems} buttonText="Show Items"/>
-                <ToggleButton bgColor={COLORS.dodgerBlue} runFunction={hideItems} buttonText="Hide Items"/>
-                <ToggleButton bgColor={COLORS.dodgerBlue} runFunction={displayForm} buttonText="Add New Item"/>
-            </div>
-            {state.showNewItemForm &&
-                <NewItemForm category={props.name} hideForm={hideForm} location={props.location} runFunction={props.runFunction} showForm={props.showForm}/>
-            }
-            {state.showItems &&
-                <div>{renderItems()}</div>
-            }
+            <div className="foodItems">
+                <h2>{makeSingular(props.name)} Items</h2>
+                <div className="alignHorizontally autoMargin">
+                    <ToggleButton bgColor={COLORS.dodgerBlue} runFunction={displayItems} buttonText="Show Items"/>
+                    <ToggleButton bgColor={COLORS.dodgerBlue} runFunction={hideItems} buttonText="Hide Items"/>
+                    <ToggleButton bgColor={COLORS.okStatusGreen} runFunction={displayForm} buttonText="Add New Item"/>
+                </div>
+                {state.showNewItemForm &&
+                    <NewItemForm category={props.name} hideForm={hideForm} location={props.location} runFunction={props.runFunction} showForm={props.showForm}/>
+                }
+                {state.showItems &&
+                    <div>{renderItems()}</div>
+                }
             </div>
         </StyledCategoryCard>
     )

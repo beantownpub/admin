@@ -46,7 +46,7 @@ export const NewCategoryForm = (props) => {
 
     const onSubmit = values => {
         console.log('Values: ' + values)
-        fetch(`food/categories`, {
+        fetch(`food/categories/${props.location}`, {
             method: "POST",
             headers: reqHeaders,
             body: JSON.stringify({

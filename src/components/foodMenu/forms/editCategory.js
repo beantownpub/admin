@@ -39,10 +39,10 @@ export const EditCategoryForm = (props) => {
         setState({ showForm: true, failedEdit: true })
     }
 
-    const endPoint = `food/categories/${props.slug}`
+    const endPoint = `food/categories/${props.slug}/${props.location}`
 
     const onSubmit = values => {
-        fetch(`food/categories/${values.itemSlug}`, {
+        fetch(`food/categories/${values.itemSlug}/${props.location}`, {
             method: 'put',
             headers: reqHeaders,
             body: JSON.stringify({

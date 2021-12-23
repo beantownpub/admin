@@ -42,7 +42,7 @@ export const EditItemForm = (props) => {
     }
 
     const onSubmit = values => {
-        fetch(`food/items/${values.itemSlug}`, {
+        fetch(`food/items/${values.itemSlug}/${props.location}`, {
             method: 'put',
             headers: reqHeaders,
             body: JSON.stringify({

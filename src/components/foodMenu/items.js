@@ -35,7 +35,7 @@ export const ItemCard = (props) => {
                 isActive={props.isActive}
                 hasSizes={props.hasSizes}
                 description={props.description}
-                location="beantown"
+                location={props.location}
             />
         </StyledItem>
     )

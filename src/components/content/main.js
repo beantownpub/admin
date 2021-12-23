@@ -1,100 +1,65 @@
 import React from 'react'
-import { DashContainer, InfoSection } from './common'
+// import { InfoSection } from './common'
 // import { MerchDash } from '../merch/main'
 import { FoodDash } from '../foodMenu/main'
-import { StyledDashContainer } from './styles/dashboard'
+import { StyledPageContainer, StyledDashContainer } from './styles/containers'
+import { StyledFooter } from './styles/footer'
+import { LinkButton } from '../elements/buttons/main'
 const CONFIG = require('./config.json')
 const COLORS = CONFIG.colors
 
-export const MainDash = () => {
+export const DashContainer = (props) => {
+    console.log('Making DASHCONTAINER')
     return (
-        <StyledDashContainer aria-labelledby="Beantown dash">
-            <InfoSection bgColor={COLORS.backgroundBeige} marginTop='10rem'>
-                <section>
-                    <h1>Beantown Pub</h1>
-                    <ul>
-                    <li><a href="/food">Manage Food Menu</a></li>
-                    </ul>
-                </section>
-            </InfoSection>
-        </StyledDashContainer>
+        <StyledPageContainer
+            margin={props.margin || "6rem auto auto auto"}
+            aria-labelledby="Beantown dash content container"
+        >
+            {props.children}
+        </StyledPageContainer>
     )
 }
 
-export const BeantownDash = () => {
+export const HomeDash = () => {
+    console.log('Making HomeDASH')
     return (
-        <StyledDashContainer aria-labelledby="Beantown dash">
-            <InfoSection bgColor={COLORS.backgroundBeige} marginTop='10rem'>
-                <section>
-                    <h1>Beantown Pub</h1>
-                    <ul>
-                    <li><a href="/food">Manage Food Menu</a></li>
-                    </ul>
-                </section>
-            </InfoSection>
-        </StyledDashContainer>
-    )
-}
-
-export const TheHubPubDash = () => {
-    return (
-        <StyledDashContainer aria-labelledby="Hub Pub dash">
-            <InfoSection bgColor={COLORS.backgroundBeige} marginTop='10rem'>
-                <section>
-                    <h1>The Hub Pub Dash Coming Soon</h1>
-                </section>
-            </InfoSection>
-        </StyledDashContainer>
-    )
-}
-
-export const FoodMenuDash = () => {
-    return (
-        <DashContainer bgColor={COLORS.backgroundBeige} marginTop='5rem'>
-            <h1>Beantown Food Menu</h1>
-            <FoodDash/>
+        <DashContainer>
+            <LinkButton
+                bgColor={COLORS.yellow}
+                border={`1px solid ${COLORS.white}`}
+                buttonText='Beantown Console'
+                maxWidth='90vw'
+                url='/beantown'
+                outerMargin="1rem auto"
+                textColor={COLORS.black}
+                width="30rem"
+            />
+            <LinkButton
+                bgColor={COLORS.headerRed}
+                border={`1px solid ${COLORS.white}`}
+                buttonText='Hub Pub Console'
+                maxWidth='90vw'
+                url='/thehubpub'
+                outerMargin="1rem auto"
+                textColor={COLORS.white}
+                width="30rem"
+            />
         </DashContainer>
     )
 }
 
-export const PartiesDash = () => {
+export const Footer = () => {
+    const year = new Date().getFullYear()
     return (
-        <div>
-            <InfoSection bgColor={COLORS.backgroundBeige} marginTop='10rem'>
-                <section>
-                    <h1>Beantown Private Parties</h1>
-                </section>
-            </InfoSection>
-        </div>
-    )
-}
-
-
-
-export const Merch = () => {
-    return (
-        <div>
-        <InfoSection bgColor={COLORS.yellow} marginTop='10rem'>
-            <section>
-                <h1>Beantown Merchandise</h1>
-                {// <MerchDash/>
-                }
-            </section>
-        </InfoSection>
-        </div>
-    )
-}
-
-export const ErrorPage = () => {
-    return (
-        <div>
-            <InfoSection bgColor='#fcba03'>
-                <section>
-                    <h1>See Yah Laatah&trade;!</h1>
-                    <h2>Sorry, somethin' aint right</h2>
-                    <h2>Requested page is nowhere to be found on the server</h2>
-                </section>
-            </InfoSection>
-        </div>
+        <StyledFooter>
+            <footer>
+                <h4>Est. 1999</h4>
+                <img src="https://static.dev.beantownpub.com/img/logos/beantown_sign.svg" alt="Beantown Pub logo" />
+                <h3>100 Tremont St. Boston MA</h3>
+                <h2>Call: 617-426-0111</h2>
+                <h2>Stay Connected</h2>
+                <h2>{'© ' + year} Beantown Pub</h2>
+            </footer>
+        </StyledFooter>
     )
 }

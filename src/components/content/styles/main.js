@@ -1,7 +1,17 @@
 import styled from 'styled-components'
-const CONFIG = require('../config.json')
+const CONFIG = require('./config.json')
 const COLORS = CONFIG.colors
 const FONTS = CONFIG.fonts
+
+export const StyledPageContainer = styled.div`
+    background-color: ${props => props.backgroundColor || "unset"};
+    display: ${props => props.display || "flex"};
+    flex-flow: ${props => props.flexFlow || "column wrap"};
+    margin: ${props => props.margin || "unset"};
+    padding: ${props => props.padding || "unset"};
+    text-transform: ${props => props.textTransform || "unset"};
+    width: ${props => props.width || "100%"};
+`
 
 export const StyledFooter = styled.div`
     display: flex;

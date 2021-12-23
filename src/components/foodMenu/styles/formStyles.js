@@ -5,16 +5,16 @@ const COLORS = CONFIG.colors
 const FONTS = CONFIG.fonts
 
 export const StyledEditForm = styled.div`
-    background-color: ${props => props.backgroundColor || COLORS.practicallyWhite};
+    background-color: ${props => props.backgroundColor || COLORS.formWhite};
     border: .15rem solid ${COLORS.shadowGray};
     border-radius: .5rem;
-    box-shadow: ${props => props.boxShadow || `.25rem .25rem 1rem .5rem ${COLORS.shadowGray}`};
+    box-shadow: ${props => props.boxShadow || `.25rem .25rem 1rem .5rem ${COLORS.boxShadowGray}`};
     display: flex;
     flex-flow: column wrap;
-    margin: ${props => props.outerMargin || "2rem auto"};
+    margin: ${props => props.outerMargin || "1rem auto"};
     max-width: 99vw;
     padding: 1rem;
-    width: ${props => props.width || "max-content"};
+    width: ${props => props.width || "100%"};
     form {
         margin: auto;
         padding: 1rem;
@@ -33,6 +33,7 @@ export const StyledEditForm = styled.div`
             margin: auto .25rem;
             font-family: ${FONTS.poppins};
             font-weight: 700;
+            text-align: left;
             text-transform: uppercase;
         }
     }
@@ -60,7 +61,7 @@ export const StyledFormContainer = styled.div`
     flex-flow: column wrap;
     margin: auto;
     width: 100%;
-    animation-duration: .5s;
+    animation-duration: .1s;
     animation-name: slidein;
     .alignButtonsHorizontally {
         display: flex;

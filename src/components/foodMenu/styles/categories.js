@@ -5,7 +5,7 @@ const COLORS = CONFIG.colors
 const FONTS = CONFIG.fonts
 
 export const StyledCategoryCard = styled.div`
-    background-color: ${props => props.backgroundColor || COLORS.antiFlashWhite };
+    background-color: ${props => props.backgroundColor || COLORS.categoryCardBackground };
     border: .25rem solid ${props => props.borderColor || COLORS.borderGray };
     border-radius: ${props => props.borderRadius || ".75rem"};
     box-shadow: ${props => props.boxShadow || `0px 5px 20px 0px ${COLORS.boxShadowGray}`};
@@ -16,39 +16,27 @@ export const StyledCategoryCard = styled.div`
     margin: 1rem auto;
     padding: .5rem;
     width: ${props => props.width || "99%"};
-    .categoryName {
-        color: ${COLORS.red};
-        padding-left: .5rem;
-    }
-    .isActive {
-        display: flex;
-        flex-flow: row nowrap;
-        width: 100%;
-        .active {
-            padding-left: .5rem;
-            h4 {
-                color: ${COLORS.okStatusGreen};
-            }
-        }
-        .notActive {
-            padding-left: .5rem;
-            h4 {
-                color: ${COLORS.headerRed};
-            }
-        }
-    }
     .sectionInfo {
         padding: .25rem;
     }
-    .itemsBorder {
+    .foodItems {
+        background-color: ${COLORS.white};
         border: .15rem solid ${COLORS.borderGray};
         border-radius: .75rem;
         box-shadow: ${props => props.boxShadow || `0px 5px 20px 0px ${COLORS.boxShadowGray}`};
         display: flex;
         flex-flow: column wrap;
-        margin: 1rem auto;
-        padding: .5rem;
-        width: 95%;
+        justify-content: center;
+        padding: .5rem 0;
+    }
+    table {
+        padding: .25rem;
+        text-transform: uppercase;
+        width: fit-content;
+        td {
+            font-size: 1rem;
+            padding: .25rem .5rem;
+        }
     }
     h2 {
         color: ${props => props.h2Color || COLORS.red };
@@ -60,12 +48,6 @@ export const StyledCategoryCard = styled.div`
         text-transform: uppercase;
         width: min-content;
         min-width: 20rem;
-    }
-    h3 {
-        font-family: gotham;
-        font-size: 1.25rem;
-        letter-spacing: .25rem;
-        text-transform: none;
     }
     h4 {
         font-family: ${props => props.font || FONTS.poppins};

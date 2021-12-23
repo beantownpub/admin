@@ -34,9 +34,10 @@ router.get('/dashboard', function (req, res, next) {
   }
 })
 
-router.delete('/items/:slug', function (req, res, next) {
+router.delete('/items/:location/:slug', function (req, res, next) {
+  const location = req.params['location']
   const slug = req.params['slug']
-  const apiUrl = `${PROTOCOL}://${HOST}/v1/menu/${slug}?location=beantown`
+  const apiUrl = `${PROTOCOL}://${HOST}/v1/menu/${slug}?location=${location}`
   const options = {
     url: apiUrl,
     method: 'delete'
@@ -44,9 +45,10 @@ router.delete('/items/:slug', function (req, res, next) {
   makeRequest(options, res)
 })
 
-router.put('/items/:slug', function (req, res, next) {
+router.put('/items/:location/:slug', function (req, res, next) {
   const slug = req.params['slug']
-  const apiUrl = `${PROTOCOL}://${HOST}/v1/menu/${slug}?location=beantown`
+  const location = req.params['location']
+  const apiUrl = `${PROTOCOL}://${HOST}/v1/menu/${slug}?location=${location}`
   const options = {
     url: apiUrl,
     method: 'put',
@@ -55,9 +57,22 @@ router.put('/items/:slug', function (req, res, next) {
   makeRequest(options, res)
 })
 
-router.post('/items', function (req, res, next) {
-  const apiUrl = `${PROTOCOL}://${HOST}/v1/menu/items?location=beantown`
+router.post('/items/:location', function (req, res, next) {
+  const location = req.params['location']
+  const apiUrl = `${PROTOCOL}://${HOST}/v1/menu/items?location=${location}`
   console.log(`POST ${apiUrl} - ${req.body}`)
+  const options = {
+    url: apiUrl,
+    method: 'post',
+    data: req.body
+  }
+  makeRequest(options, res)
+})
+
+router.post(':location/items', function (req, res, next) {
+  const location = req.params['location']
+  const apiUrl = `${PROTOCOL}://${HOST}/v1/menu/items?location=${location}`
+  console.log(`/items/${location} | POST ${apiUrl} | ${req.body}`)
   const options = {
     url: apiUrl,
     method: 'post',
@@ -68,8 +83,9 @@ router.post('/items', function (req, res, next) {
 
 router.delete('/categories/:slug', function (req, res, next) {
   const slug = req.params['slug']
-  const apiUrl = `${PROTOCOL}://${HOST}/v2/menu/categories/${slug}?location=beantown`
-  console.log(`DELETE categories request ${apiUrl}`)
+  const location = req.params['location']
+  const apiUrl = `${PROTOCOL}://${HOST}/v2/menu/categories/${slug}?location=${location}`
+  console.log(`DELETE /categories/${location}/${slug}`)
   const options = {
     url: apiUrl,
     method: 'delete'
@@ -77,10 +93,11 @@ router.delete('/categories/:slug', function (req, res, next) {
   makeRequest(options, res)
 })
 
-router.put('/categories/:slug', function (req, res, next) {
+router.put('/categories/:location/:slug', function (req, res, next) {
   const slug = req.params['slug']
-  const apiUrl = `${PROTOCOL}://${HOST}/v2/menu/categories/${slug}?location=beantown`
-  console.log(`PUT request ${apiUrl}`)
+  const location = req.params['location']
+  const apiUrl = `${PROTOCOL}://${HOST}/v2/menu/categories/${slug}?location=${location}`
+  console.log(`PUT /categories/${location}/${slug}`)
   const options = {
     url: apiUrl,
     method: 'put',
@@ -89,9 +106,10 @@ router.put('/categories/:slug', function (req, res, next) {
   makeRequest(options, res)
 })
 
-router.get('/categories', function (req, res, next) {
-  const apiUrl = `${PROTOCOL}://${HOST}/v2/menu/categories?location=beantown`
-  console.log(`GET categories request ${apiUrl}`)
+router.get('/categories/:location', function (req, res, next) {
+  const location = req.params['location']
+  const apiUrl = `${PROTOCOL}://${HOST}/v2/menu/categories?location=${location}`
+  console.log(`GET | categories | Location: ${location} | ${apiUrl}`)
   const options = {
     url: apiUrl,
     method: 'get'
@@ -99,15 +117,36 @@ router.get('/categories', function (req, res, next) {
   makeRequest(options, res)
 })
 
-router.post('/categories', function (req, res, next) {
-  const apiUrl = `${PROTOCOL}://${HOST}/v2/menu/categories?location=beantown`
-  console.log(`POST ${apiUrl} - ${req.body}`)
+router.get(':location/categories', function (req, res, next) {
+  const location = req.params['location']
+  const apiUrl = `${PROTOCOL}://${HOST}/v2/menu/categories?location=${location}`
+  console.log(`/categories/${location} GET categories request ${apiUrl}`)
+  const options = {
+    url: apiUrl,
+    method: 'get'
+  }
+  makeRequest(options, res)
+})
+
+router.post('/categories/:location', function (req, res, next) {
+  const location = req.params['location']
+  const apiUrl = `${PROTOCOL}://${HOST}/v2/menu/categories?location=${location}`
+  console.log(`POST | categories | Location: ${location}`)
   const options = {
     url: apiUrl,
     method: 'post',
     data: req.body
   }
   makeRequest(options, res)
+})
+
+router.get('/logout', function(req, res, next) {
+  // remove the req.user property and clear the login session
+  // destroy session data
+  req.session.loggedin = false
+  // req.session = null
+  // redirect to homepage
+  res.redirect('/')
 })
 
 router.get('/:page', function(req, res, next) {
