@@ -1,11 +1,10 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import Popup from 'react-popup'
-import { LoginForm } from './components/login/main'
-import { MainDash, PartiesDash, FoodMenuDash, Merch } from './components/content/main'
-import { Footer } from './components/content/common'
+// import { MainDash, PartiesDash, FoodMenuDash, Merch } from './components/content/main'
+import { Footer } from './components/content/main'
 import { TopMenuBar, LinkList, TopNavBar, linkProps } from './components/topBar/main'
-import Routes from './reactRoutes'
+import ReactRoutes from './components/reactRoutes'
 const config = require('./config.json')
 const pages = config.beantown.pages
 const staticURL = config.beantown.static_url
@@ -57,48 +56,38 @@ ReactDOM.render(
     document.getElementById('footer')
 )
 
-// ReactDOM.render(
-//     <Routes />,
-//    document.getElementById('app')
-//)
-
-ReactDOM.render(
-    <Popup />,
-    document.getElementById('popupContainer')
-)
-
-if (document.getElementById('loginForm')) {
-    const title = "Beantown Management"
+if (document.getElementById('app')) {
     ReactDOM.render(
-        <LoginForm title={title} />,
-        document.getElementById('loginForm')
+        <ReactRoutes/>,
+        document.getElementById('app')
     )
 }
 
-if (document.getElementById('partiesDash')) {
+if (document.getElementById('popupContainer')) {
     ReactDOM.render(
-        <PartiesDash/>,
-        document.getElementById('partiesDash')
+        <Popup/>,
+        document.getElementById('popupContainer')
     )
 }
 
-if (document.getElementById('foodDash')) {
-    ReactDOM.render(
-        <FoodMenuDash/>,
-        document.getElementById('foodDash')
-    )
-}
-
-if (document.getElementById('dashboard')) {
-    ReactDOM.render(
-        <MainDash/>,
-        document.getElementById('dashboard')
-    )
-}
-
-if (document.getElementById('merch')) {
-    ReactDOM.render(
-        <Merch/>,
-        document.getElementById('merch')
-    )
-}
+// if (document.getElementById('loginForm')) {
+//     const title = "Beantown Management"
+//     ReactDOM.render(
+//         <LoginForm title={title} />,
+//         document.getElementById('loginForm')
+//     )
+// }
+//
+// if (document.getElementById('foodDash')) {
+//     ReactDOM.render(
+//         <BeantownFoodMenuDash/>,
+//         document.getElementById('foodDash')
+//     )
+// }
+//
+// if (document.getElementById('dashboard')) {
+//     ReactDOM.render(
+//         <MainDash/>,
+//         document.getElementById('dashboard')
+//     )
+// }

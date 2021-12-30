@@ -3,16 +3,10 @@ import { useForm } from "react-hook-form"
 import Popup from "react-popup"
 import { SubmitButton, ToggleButton } from "../../elements/buttons/main"
 import { StyledEditForm } from "../styles/formStyles"
+import { config, getOptions } from '../../../utils/main'
 
-const CONFIG = require("../../content/config.json")
-const COLORS = CONFIG.colors
-
+const COLORS = config.colors
 const required = { required: "Required" }
-
-const reqHeaders = {
-    "Accept": "application/json",
-    "Content-Type": "application/json"
-}
 
 function makeSlug(name) {
     return name.replace(/ /g, "-").toLowerCase()
@@ -45,9 +39,9 @@ export const NewItemForm = (props) => {
 
     const onSubmit = values => {
         console.log('Submitting new food item')
-        fetch(`food/items`, {
+        fetch(`/food/items/${props.location}`, {
             method: "POST",
-            headers: reqHeaders,
+            headers: getOptions.headers,
             body: JSON.stringify({
                 category_id: props.category,
                 description: values.description,
@@ -108,7 +102,7 @@ export const NewItemForm = (props) => {
                     ref={register()}
                 ></textarea>
                 <div className="alignHorizontally autoMargin">
-                    <SubmitButton bgColor={COLORS.pastelGreen} buttonText="Add Item" />
+                    <SubmitButton bgColor={COLORS.okStatusGreen} buttonText="Add Item" />
                     <ToggleButton bgColor={COLORS.red} runFunction={props.hideForm} buttonText="Cancel" />
                 </div>
             </form>

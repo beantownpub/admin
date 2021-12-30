@@ -33,11 +33,11 @@
                 "title": "Beantown Admin",
                 "keywords": "",
                 "description": "Beantown admin",
-                "menu_list": true,
+                "menu_list": false,
                 "top_menu": false
             },
             "Beantown Pub": {
-                "name": "dashboard",
+                "name": "/beantown",
                 "icon": "faUtensils",
                 "text": "Beantown Pub",
                 "title": "Beantown Pub Dash",
@@ -47,7 +47,7 @@
                 "top_menu": true
             },
             "The Hub Pub": {
-                "name": "dashboards/thehubpub",
+                "name": "/thehubpub",
                 "icon": "faCalendar",
                 "text": "The Hub Pub",
                 "title": "The Hub Pub Dash",
@@ -56,15 +56,15 @@
                 "menu_list": true,
                 "top_menu": true
             },
-            "merch": {
-                "name": "merch",
+            "logout": {
+                "name": "logout",
                 "icon": "faTshirt",
-                "text": "Merch",
-                "title": "Merch",
-                "keywords": "beantown pub, tshirts, sweatshirts, hats, glasses, souvenirs",
-                "description": "Beantown Pub Merch",
+                "text": "Logout",
+                "title": "Logout",
+                "keywords": "",
+                "description": "",
                 "menu_list": false,
-                "top_menu": false
+                "top_menu": true
             },
             "facebook": {
                 "name": "https://www.facebook.com/BeantownPubMA/",

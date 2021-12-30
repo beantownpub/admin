@@ -54,6 +54,9 @@ const urlRoot = process.env.NODE_JAL_URL_ROOT || '/'
 
 app.use(urlRoot, indexRouter);
 app.use(urlRoot + '/users', usersRouter);
+app.use(urlRoot + 'beantown/food', foodRouter);
+app.use(urlRoot + 'thehubpub/food', foodRouter);
+app.use(urlRoot + 'thehubpub/food/categories', foodRouter);
 app.use(urlRoot + 'food', foodRouter);
 
 // catch 404 and forward to error handler

@@ -16,6 +16,7 @@ export const Button = (props) => {
             fontSize={props.buttonStyles.fontSize}
             letterSpacing={props.buttonStyles.letterSpacing}
             margin={props.buttonStyles.margin}
+            maxWidth={props.buttonStyles.maxWidth}
             outerMargin={props.buttonStyles.outerMargin}
             outerPadding={props.buttonStyles.outerPadding}
             padding={props.buttonStyles.padding}
@@ -48,6 +49,20 @@ export const SubmitButton = (props) => {
         if (props.runFunction) {
             props.runFunction()
         }
+    }
+    return (
+        <Button
+            clickHandler={handleClick}
+            buttonStyles={props}
+            buttonText={props.buttonText}
+        />
+    )
+}
+
+export const LinkButton = (props) => {
+    console.log('Link URL: ' + props.url)
+    const handleClick = () => {
+        window.location.href = props.url
     }
     return (
         <Button

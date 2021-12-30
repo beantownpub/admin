@@ -20,44 +20,46 @@ function makeRequest(apiUrl, method, res) {
 
 router.get('/dashboard', function (req, res, next) {
   var sections = config.sections
-  console.log('SESSION: ' + Object.keys(req.session))
-  console.log('Logged In: ' + req.session.loggedin)
+  console.log('DASHBOARD | GET | Session Keys: ' + Object.keys(req.session))
+  console.log('DASHBOARD | GET | Logged In: ' + req.session.loggedin)
 	if (req.session.loggedin) {
-    console.log('LOGGED IN')
     const dashboard = sections.dashboard
     res.render(dashboard.template, dashboard.metadata)
     res.end()
 	} else {
-    console.log('NOT LOGGED IN')
+    console.log('DASHBOARD | GET | Not logged in')
 		const home = sections.home
     res.render(home.template, home.metadata)
   }
 })
 
-router.delete('/items/:slug', function (req, res, next) {
-  const slug = req.params['slug']
-  const apiUrl = `${PROTOCOL}://${HOST}/v1/menu/${slug}?location=beantown`
-  const options = {
-    url: apiUrl,
-    method: 'delete'
-  }
-  makeRequest(options, res)
-})
+// router.delete('/items/:location', function (req, res, next) {
+//   const location = req.params['location']
+//   const apiUrl = `${PROTOCOL}://${HOST}/v3/menu/products?location=${location}&sku=${req.body['sku']}`
+//   console.log(`ITEMS | DELETE | Location: ${location} | Path: ${req.path}`)
+//   const options = {
+//     url: apiUrl,
+//     method: 'delete'
+//   }
+//   makeRequest(options, res)
+// })
 
-router.put('/items/:slug', function (req, res, next) {
-  const slug = req.params['slug']
-  const apiUrl = `${PROTOCOL}://${HOST}/v1/menu/${slug}?location=beantown`
-  const options = {
-    url: apiUrl,
-    method: 'put',
-    data: req.body
-  }
-  makeRequest(options, res)
-})
+// router.put('/items/:location', function (req, res, next) {
+//   const location = req.params['location']
+//   const apiUrl = `${PROTOCOL}://${HOST}/v3/menu/products?location=${location}`
+//   console.log(`ITEMS | PUT | Body: ${req.body} | Path: ${req.path}`)
+//   const options = {
+//     url: apiUrl,
+//     method: 'put',
+//     data: req.body
+//   }
+//   makeRequest(options, res)
+// })
 
-router.post('/items', function (req, res, next) {
-  const apiUrl = `${PROTOCOL}://${HOST}/v1/menu/items?location=beantown`
-  console.log(`POST ${apiUrl} - ${req.body}`)
+router.post('/items/:location', function (req, res, next) {
+  const location = req.params['location']
+  const apiUrl = `${PROTOCOL}://${HOST}/v3/menu/products?location=${location}`
+  console.log(`ITEMS | POST | Location: ${location} | Path: ${req.path}`)
   const options = {
     url: apiUrl,
     method: 'post',
@@ -66,10 +68,12 @@ router.post('/items', function (req, res, next) {
   makeRequest(options, res)
 })
 
-router.delete('/categories/:slug', function (req, res, next) {
+router.delete('/:table/:location', function (req, res, next) {
+  const table = req.params['table']
   const slug = req.params['slug']
-  const apiUrl = `${PROTOCOL}://${HOST}/v2/menu/categories/${slug}?location=beantown`
-  console.log(`DELETE categories request ${apiUrl}`)
+  const location = req.params['location']
+  const apiUrl = `${PROTOCOL}://${HOST}/v3/menu/${table}?location=${location}&sku=${req.body['sku']}`
+  console.log(`CATEGORIES | DELETE | Location: ${location} | Slug: ${slug} | Path: ${req.path} | Sku: ${req.body['sku']}`)
   const options = {
     url: apiUrl,
     method: 'delete'
@@ -77,10 +81,11 @@ router.delete('/categories/:slug', function (req, res, next) {
   makeRequest(options, res)
 })
 
-router.put('/categories/:slug', function (req, res, next) {
-  const slug = req.params['slug']
-  const apiUrl = `${PROTOCOL}://${HOST}/v2/menu/categories/${slug}?location=beantown`
-  console.log(`PUT request ${apiUrl}`)
+router.put('/:table/:location', function (req, res, next) {
+  const table = req.params['table']
+  const location = req.params['location']
+  const apiUrl = `${PROTOCOL}://${HOST}/v3/menu/${table}?location=${location}`
+  console.log(`CATEGORIES | UPDATE | Table: ${table} | Location: ${location} | Path: ${req.path}`)
   const options = {
     url: apiUrl,
     method: 'put',
@@ -89,9 +94,11 @@ router.put('/categories/:slug', function (req, res, next) {
   makeRequest(options, res)
 })
 
-router.get('/categories', function (req, res, next) {
-  const apiUrl = `${PROTOCOL}://${HOST}/v2/menu/categories?location=beantown`
-  console.log(`GET categories request ${apiUrl}`)
+router.get('/:table/:location', function (req, res, next) {
+  const location = req.params['location']
+  const table = req.params['table']
+  const apiUrl = `${PROTOCOL}://${HOST}/v3/menu/${table}?location=${location}&with_items=true`
+  console.log(`CATEGORIES | GET | Table: ${table} | Location: ${location} | Path: ${req.path}`)
   const options = {
     url: apiUrl,
     method: 'get'
@@ -99,9 +106,10 @@ router.get('/categories', function (req, res, next) {
   makeRequest(options, res)
 })
 
-router.post('/categories', function (req, res, next) {
-  const apiUrl = `${PROTOCOL}://${HOST}/v2/menu/categories?location=beantown`
-  console.log(`POST ${apiUrl} - ${req.body}`)
+router.post('/categories/:location', function (req, res, next) {
+  const location = req.params['location']
+  const apiUrl = `${PROTOCOL}://${HOST}/v3/menu/categories?location=${location}`
+  console.log(`CATEGORIES | POST | Location: ${location} | Path: ${req.path}`)
   const options = {
     url: apiUrl,
     method: 'post',
@@ -110,8 +118,19 @@ router.post('/categories', function (req, res, next) {
   makeRequest(options, res)
 })
 
+router.get('/logout', function(req, res, next) {
+  console.log(`LOGOUT | User: ${req.session.username} | Path: ${req.path}`)
+  // destroy session data
+  req.session.loggedin = false
+  // req.session = null
+  // redirect to homepage
+  res.redirect('/')
+})
+
 router.get('/:page', function(req, res, next) {
-  res.redirect(`/${req.params['page']}`)
+  const page = req.params['page']
+  console.log(`CATCHALL | GET | Page: ${page} | Path: ${req.path}`)
+  res.redirect(`/${page}`)
 })
 
 module.exports = router

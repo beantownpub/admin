@@ -1,6 +1,6 @@
 import React from 'react'
-import { EditItemForm } from './forms/editItem'
-import { StyledItem } from './styles/itemStyles'
+import { EditItemForm } from '../forms/editItem'
+import { StyledItem } from '../styles/itemStyles'
 
 export const ItemCard = (props) => {
     return (
@@ -26,16 +26,17 @@ export const ItemCard = (props) => {
             }
 
             <EditItemForm
-                showForm={props.form}
-                runFunction={props.runFunction}
-                name={props.name}
-                price={props.price}
-                slug={props.slug}
                 category={props.category}
+                description={props.description}
                 isActive={props.isActive}
                 hasSizes={props.hasSizes}
-                description={props.description}
-                location="beantown"
+                location={props.location}
+                price={props.price}
+                runFunction={props.runFunction}
+                showForm={props.form}
+                sku={props.sku}
+                slug={props.slug}
+                name={props.name}
             />
         </StyledItem>
     )

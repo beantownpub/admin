@@ -22,20 +22,24 @@ export const StyledLoginContainer = styled.div`
 `
 
 export const StyledLoginForm = styled.div`
+    background: ${COLORS.black};
+    border-radius: 1rem;
     margin: 2rem auto;
     display: flex;
     flex-flow: column wrap;
+    padding: 1.5rem;
     width: 355px;
+    max-width: 95vw;
     form {
         display: flex;
         flex-flow: column wrap;
         input {
             margin: .5rem 0;
-            padding: .5rem;
-            width: 350px;
+            max-width: 90vw;
             height: 40px;
             border: .05rem solid #e2e2e2;
             border-radius: 6px;
+            padding: .25rem;
         }
         label {
             margin: auto .25rem;

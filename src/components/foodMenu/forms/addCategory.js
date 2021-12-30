@@ -3,15 +3,10 @@ import Popup from "react-popup"
 import { useForm } from "react-hook-form"
 import { SubmitButton, ToggleButton } from "../../elements/buttons/main"
 import { StyledEditForm } from "../styles/formStyles"
+import { config, getOptions } from '../../../utils/main'
 
-const CONFIG = require("../../content/config.json")
-const COLORS = CONFIG.colors
+const COLORS = config.colors
 const required = { required: "Required" }
-
-const reqHeaders = {
-    "Accept": "application/json",
-    "Content-Type": "application/json"
-}
 
 function makeSlug(name) {
     return name.replace(/ /g, "-").toLowerCase()
@@ -46,10 +41,11 @@ export const NewCategoryForm = (props) => {
 
     const onSubmit = values => {
         console.log('Values: ' + values)
-        fetch(`food/categories`, {
+        fetch(`/food/categories/${props.location}`, {
             method: "POST",
-            headers: reqHeaders,
+            headers: getOptions.headers,
             body: JSON.stringify({
+                description: values.description,
                 name: values.categoryName,
                 is_active: values.isActive,
                 slug: makeSlug(values.categoryName),

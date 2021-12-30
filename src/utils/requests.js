@@ -27,12 +27,11 @@ const RESPONSES = {
 function makeRequest(options, res) {
     authHeaders['Content-Type'] = 'application/json'
     options.headers = authHeaders
-    for (const item of Object.keys(options)) {
-        console.log(`${item}: ${options[item]}`)
-    }
+    console.log(`makeRequest | METHOD: ${options.method} | URL | ${options.url}`)
     try {
         axios(options)
         .then(response => {
+            console.log(`makeRequest | Response: ${response.status}`)
             if (OK_RESPONSES.includes(response.status)) {
                 res.status(200).json({'status': 200, 'data': response.data})
             } else {

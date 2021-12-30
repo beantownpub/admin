@@ -1,6 +1,5 @@
 var express = require('express')
 var router = express.Router()
-var jalVersion = (process.env.JAL_VERSION) ? process.env.JAL_VERSION : 'unset'
 var config = require('./config.json')
 var sections = config.sections
 const axios = require('axios')
@@ -13,8 +12,21 @@ router.use(function (req, res, next) {
 })
 
 router.get('/', function(req, res, next) {
+  if (req.session.loggedin) {
+    console.log('/home LOGGED IN')
+    const home = sections.home
+    res.render(home.template, home.metadata)
+  } else {
+    console.log('/home NOT LOGGED IN')
+    const home = sections.home
+    res.render(home.template, home.metadata)
+  }
+})
+
+router.get('/login', function(req, res, next) {
+  console.log('GETTING LOGIN PAGE')
   const home = sections.home
-  res.render(home.template, home.metadata)
+  res.render('login', home.metadata)
 })
 
 router.get('/index', function(req, res, next) {
@@ -24,31 +36,99 @@ router.get('/index', function(req, res, next) {
 
 router.get('/merch', function (req, res, next) {
 	if (req.session.loggedin) {
-    console.log('LOGGED IN')
+    console.log('LOGGED IN ' + req.session.username)
     const merch = sections.merch
     res.render(merch.template, merch.metadata)
 	} else {
     console.log('NOT LOGGED IN')
 		const home = sections.home
-    res.render(home.template, home.metadata)
+    res.redirect('/login')
   }
 })
 
-router.get('/food', function (req, res, next) {
+
+
+router.get('/beantown', function (req, res, next) {
 	if (req.session.loggedin) {
-    console.log('LOGGED IN')
+    console.log('/beantown | LOGGED IN | User: ' + req.session.username)
     const food = sections.food
     res.render(food.template, food.metadata)
 	} else {
-    console.log('NOT LOGGED IN')
+    console.log('/beantown NOT LOGGED IN')
 		const home = sections.home
-    res.render(home.template, home.metadata)
+    res.redirect('/login')
   }
 })
 
-router.get('/dashboard', function (req, res, next) {
-  console.log('SESSION: ' + Object.keys(req.session))
-  console.log('Logged In: ' + req.session.loggedin)
+router.get('/beantown/logout', function(req, res, next) {
+  console.log(`/beantown/logout LOGOUT Req: ${req.path}`)
+  req.session.loggedin = false
+  res.redirect('/')
+})
+
+router.get('/beantown/food', function (req, res, next) {
+	if (req.session.loggedin) {
+    console.log('/food | LOGGED IN | User: ' + req.session.username)
+    const food = sections.food
+    res.render(food.template, food.metadata)
+	} else {
+    res.redirect('/login')
+  }
+})
+
+router.get('/beantown/:section', function(req, res, next) {
+  console.log(`/beantown Section: /${req.params['section']}`)
+  if (req.session.loggedin) {
+    console.log('/beantown/:section | LOGGED IN | User: ' + req.session.username)
+    res.redirect('/beantown')
+  } else {
+    console.log('/beantown:section NOT LOGGED IN')
+    res.redirect('/login')
+  }
+})
+
+router.get('/thehubpub', function (req, res, next) {
+	if (req.session.loggedin) {
+    console.log('/thehubpub | LOGGED IN | User: ' + req.session.username)
+    const food = sections.food
+    res.render(food.template, food.metadata)
+	} else {
+    console.log('/thehubpub NOT LOGGED IN')
+		const home = sections.home
+    res.redirect('/login')
+  }
+})
+
+router.get('/thehubpub/logout', function(req, res, next) {
+  console.log(`/thehubpub/logout LOGOUT Req: ${req.path}`)
+  req.session.loggedin = false
+  res.redirect('/')
+})
+
+router.get('/thehubpub/food', function (req, res, next) {
+	if (req.session.loggedin) {
+    console.log('/food | LOGGED IN | User: ' + req.session.username)
+    const food = sections.food
+    res.render(food.template, food.metadata)
+	} else {
+    res.redirect('/login')
+  }
+})
+
+router.get('/thehubpub/:section', function(req, res, next) {
+  console.log(`/thehubpub Section: /${req.params['section']}`)
+  if (req.session.loggedin) {
+    console.log('/thehubpub/:section | LOGGED IN | User: ' + req.session.username)
+    res.redirect('/thehubpub')
+  } else {
+    console.log('/thehubpub:section NOT LOGGED IN')
+    res.redirect('/login')
+  }
+})
+
+router.get('/dashboards', function (req, res, next) {
+  console.log('SESSION: ' + Object.keys(req))
+  console.log('/dashboards | LOGGED IN | User: ' + req.session.username)
 	if (req.session.loggedin) {
     console.log('LOGGED IN')
     const dashboard = sections.dashboard
@@ -89,17 +169,28 @@ router.post('/auth', function (req, res, next) {
       .catch(error => {
         console.error('AXIOS Error: ' + error)
         res.status(401).json({
-          'title': 'Login Failure Asshole',
+          'title': 'Axios Login Failure',
           'status': 401
         })
       })
   } catch(error) {
     console.log('AUTH Error: ' + error)
     res.status(500).json({
-      'title': 'Login Failure Asshole',
+      'title': 'AUTH Login Failure',
       'status': 500
     })
   }
+})
+
+router.get('/logout', function(req, res, next) {
+  console.log(`LOGOUT Req: ${req.path}`)
+  // remove the req.user property and clear the login session
+  // req.logout()
+  // destroy session data
+  req.session.loggedin = false
+  // req.session = null
+  // redirect to homepage
+  res.redirect('/')
 })
 
 router.get('/healthz', function(req, res, next) {

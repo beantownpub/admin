@@ -21,6 +21,7 @@ export const StyledButton = styled.div`
         font-size: ${props => props.fontSize || "1rem"};
         letter-spacing: ${props => props.letterSpacing || ".2rem"};
         margin: ${props => props.margin || ".25rem auto"};
+        max-width: ${props => props.maxWidth || "unset"};
         padding: ${props => props.padding || "1rem"};
         text-align: ${props => props.textAlign || "center"};
         text-decoration: ${props => props.textDecoration || "none"};

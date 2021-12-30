@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import MenuIcon, { getIcon } from '../content/icon'
-import { SubmitButton } from '../elements/buttons/main'
+import { SubmitButton, LinkButton } from '../elements/buttons/main'
 import { StyledLoginContainer, StyledLoginForm, StyledLogin } from './styles'
+import { HomeDash } from '../content/main'
 
 const CONFIG = require('../content/config.json')
 const COLORS = CONFIG.colors
@@ -107,7 +108,7 @@ export const LoginForm = (props) => {
             {state.loggedIn &&
             <StyledLogin>
                 <h2>Login complete!</h2>
-                <a href="/food">Manage Beantown Menu</a>
+                <HomeDash/>
             </StyledLogin>
             }
         </div>
