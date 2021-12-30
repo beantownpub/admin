@@ -3,15 +3,10 @@ import { useForm } from 'react-hook-form'
 import { DeleteButton } from '../../elements/buttons/delete'
 import { SubmitButton, ToggleButton } from '../../elements/buttons/main'
 import { StyledEditForm, StyledFormContainer } from '../styles/formStyles'
+import { config, getOptions } from '../../../utils/main'
 
-const CONFIG = require('../../content/config.json')
-const COLORS = CONFIG.colors
+const COLORS = config.colors
 const required = { required: 'Required' }
-
-const reqHeaders = {
-    'Accept': 'application/json',
-    'Content-Type': 'application/json'
-}
 
 export const EditItemForm = (props) => {
     const [state, setState] = useState({
@@ -42,16 +37,17 @@ export const EditItemForm = (props) => {
     }
 
     const onSubmit = values => {
-        fetch(`food/items/${values.itemSlug}/${props.location}`, {
+        fetch(`/food/products/${props.location}`, {
             method: 'put',
-            headers: reqHeaders,
+            headers: getOptions.headers,
             body: JSON.stringify({
                 category_id: values.category,
                 description: values.description,
                 is_active: values.isActive,
                 name: values.itemName,
                 price: values.itemPrice,
-                slug: values.itemSlug
+                slug: values.itemSlug,
+                location: props.location
             })
         })
         .catch(err => {
@@ -82,7 +78,7 @@ export const EditItemForm = (props) => {
         <StyledFormContainer aria-labelledby="Edit food item form container">
             <div className="alignButtonsHorizontally">
                 <ToggleButton bgColor={COLORS.dodgerBlue} runFunction={displayForm} buttonText="Edit"/>
-                <DeleteButton bgColor={COLORS.red} name={props.slug} runFunction={props.runFunction} endPoint={`food/items/${props.slug}`} itemType="food item"/>
+                <DeleteButton bgColor={COLORS.red} name={props.slug} runFunction={props.runFunction} endPoint={`food/items/${props.location}`} itemType="item" sku={props.sku}/>
             </div>
         {state.showForm &&
         <StyledEditForm aria-labelledby="Edit food item form">

@@ -3,16 +3,10 @@ import { useForm } from 'react-hook-form'
 import { DeleteButton } from '../../elements/buttons/delete'
 import { SubmitButton, ToggleButton } from '../../elements/buttons/main'
 import { StyledEditForm, StyledFormContainer } from '../styles/formStyles'
+import { config, getOptions } from '../../../utils/main'
 
-const CONFIG = require('../../content/config.json')
-const COLORS = CONFIG.colors
-
+const COLORS = config.colors
 const required = { required: 'Required' }
-
-const reqHeaders = {
-    'Accept': 'application/json',
-    'Content-Type': 'application/json'
-}
 
 export const EditCategoryForm = (props) => {
     const [state, setState] = useState({
@@ -39,13 +33,14 @@ export const EditCategoryForm = (props) => {
         setState({ showForm: true, failedEdit: true })
     }
 
-    const endPoint = `food/categories/${props.slug}/${props.location}`
+    const endPoint = `/food/categories/${props.location}`
 
     const onSubmit = values => {
-        fetch(`food/categories/${values.itemSlug}/${props.location}`, {
+        fetch(`/food/categories/${props.location}`, {
             method: 'put',
-            headers: reqHeaders,
+            headers: getOptions.headers,
             body: JSON.stringify({
+                description: values.description,
                 name: values.categoryName,
                 is_active: values.isActive,
                 slug: values.itemSlug,
@@ -79,7 +74,7 @@ export const EditCategoryForm = (props) => {
     return (
         <StyledFormContainer aria-labelledby="Edit form container">
             <div className="alignHorizontally">
-                <DeleteButton bgColor={COLORS.red} name={props.slug} runFunction={props.runFunction} endPoint={endPoint} itemType="category"/>
+                <DeleteButton bgColor={COLORS.red} name={props.slug} runFunction={props.runFunction} endPoint={endPoint} itemType="category" sku={props.sku}/>
                 <ToggleButton bgColor={COLORS.dodgerBlue} runFunction={displayForm} buttonText="Edit" />
             </div>
         {state.showForm &&
@@ -89,6 +84,7 @@ export const EditCategoryForm = (props) => {
                 <label htmlFor="categoryName">Section Name</label>
                 <input className="inputField" name='categoryName' defaultValue={props.name} ref={register(required)} />
                 <input name='itemSlug' defaultValue={props.slug} ref={register(required)} type="hidden"/>
+                <input name='itemSku' defaultValue={props.sku} ref={register(required)} type="hidden"/>
                 <input name='location' defaultValue={props.location} ref={register(required)} type="hidden"/>
                 <div className="checkField">
                 <label htmlFor="isActive">{"Active? (Sections marked active are shown on live menu)"}</label>

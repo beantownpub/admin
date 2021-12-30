@@ -1,0 +1,43 @@
+{
+    "colors": {
+        "antiFlashWhite": "#f2f3f4",
+        "backgroundBeige": "beige",
+        "backgroundGray": "#383838",
+        "black": "#000000",
+        "blue": "#1f6696",
+        "borderGray": "#dbd9d9",
+        "boxShadowGray": "rgb(126 137 140 / 20%)",
+        "buttonBlue": "#1e90ff",
+        "categoryCardBackground": "#eee",
+        "cyan": "#3fc5f0",
+        "darkGray": "#383838",
+        "dimGray": "#696969",
+        "dodgerBlue": "#1e90ff",
+        "formWhite": "#fdfdfd",
+        "gray": "#494040",
+        "okStatusGreen": "#008000",
+        "green": "#008000",
+        "headerRed": "#c70039",
+        "lawnGreen": "#lawngreen",
+        "lightGray": "#F3F4F4",
+        "navBarBlue": "rgba(5,46,102,0.90)",
+        "paleAqua": "#bcd4e6",
+        "paleGreen": "#98fb98",
+        "pastelGreen": "#77dd77",
+        "pastelYellow": "#fdfd96",
+        "practicallyWhite": "#fdfdfd",
+        "red": "#c70039",
+        "shadowGray": "#e2e2e2",
+        "spanishGray": "#989898",
+        "unmellowYellow": "#ffff66",
+        "white": "white",
+        "yellow": "#fcba03"
+    },
+    "fonts": {
+        "gothamMedium": "gotham-medium",
+        "headers": "'Poppins', sans-serif",
+        "lato": "'Lato', sans-serif",
+        "paragraphs": "'Lato', sans-serif",
+        "poppins": "'Poppins', sans-serif"
+    }
+}

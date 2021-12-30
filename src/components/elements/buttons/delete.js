@@ -10,7 +10,8 @@ export const DeleteButton = (props) => {
                     method: 'DELETE',
                     headers: {'Content-Type': 'application/json'},
                     body: JSON.stringify({
-                        name: props.name
+                        name: props.name,
+                        sku: props.sku
                     })
                 }
                 fetch(props.endPoint, options)

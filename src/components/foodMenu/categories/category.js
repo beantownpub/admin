@@ -1,16 +1,12 @@
 import React, { useState } from 'react'
-import { StyledCategoryCard, StyledItemsContainer } from './styles/categories'
-import { NewItemForm } from './forms/addItem'
-import { EditCategoryForm } from './forms/editCategory'
+import { StyledCategoryCard, StyledItemsContainer } from './styles'
+import { NewItemForm } from '../forms/addItem'
+import { EditCategoryForm } from '../forms/editCategory'
 import { ItemCard } from './items'
-import { ToggleButton } from '../elements/buttons/main'
+import { ToggleButton } from '../../elements/buttons/main'
+import { config, makeSingular } from '../../../utils/main'
+const COLORS = config.colors
 
-const CONFIG = require('../content/config.json')
-const COLORS = CONFIG.colors
-
-function makeSingular(name) {
-    return name.replace(/ees$/, 'ee').replace(/es$/, '').replace(/s$/, '')
-}
 
 export const CategoryCard = (props) => {
     const [state, setState] = useState({
@@ -39,15 +35,17 @@ export const CategoryCard = (props) => {
         // console.log('ITEMS: ' + props.items)
         if (props.items) {
             items = props.items.map((item) =>
-                <ItemCard key={item.sku.toString()}
-                    runFunction={props.runFunction}
+                <ItemCard
                     category={props.name}
-                    sku={item.sku}
-                    slug={item.slug}
-                    name={item.name}
-                    isActive={item.is_active}
                     description={item.description}
+                    isActive={item.is_active}
+                    key={item.id.toString()}
+                    location={props.location}
+                    name={item.name}
                     price={item.price}
+                    runFunction={props.runFunction}
+                    sku={item.id}
+                    slug={item.slug}
                 />
             )
         }
@@ -75,12 +73,14 @@ export const CategoryCard = (props) => {
                 </tbody>
             </table>
             <EditCategoryForm
-                showForm={props.form}
-                runFunction={props.runFunction}
-                name={props.name}
+                description={props.description}
                 isActive={props.isActive}
-                slug={props.slug}
                 location={props.location}
+                name={props.name}
+                runFunction={props.runFunction}
+                showForm={props.form}
+                sku={props.sku}
+                slug={props.slug}
             />
             <div className="foodItems">
                 <h2>{makeSingular(props.name)} Items</h2>

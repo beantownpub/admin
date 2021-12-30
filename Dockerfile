@@ -16,9 +16,12 @@ ENV WEBPACK_CLI_SKIP_IMPORT_LOCAL=true
 
 COPY ./package* /app/
 WORKDIR /app
-RUN npm ci --save-dev
+RUN npm ci --save-dev --production=false
 COPY . ./
-RUN npx webpack build --config webpack.config.js && \
+RUN npx webpack build \
+        --progress \
+        --node-env ${node_env} \
+        --config webpack.config.js && \
     rm -rf node_modules
 
 FROM node:14.17.6-buster-slim

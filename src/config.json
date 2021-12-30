@@ -33,11 +33,11 @@
                 "title": "Beantown Admin",
                 "keywords": "",
                 "description": "Beantown admin",
-                "menu_list": true,
+                "menu_list": false,
                 "top_menu": false
             },
             "Beantown Pub": {
-                "name": "beantown",
+                "name": "/beantown",
                 "icon": "faUtensils",
                 "text": "Beantown Pub",
                 "title": "Beantown Pub Dash",
@@ -47,7 +47,7 @@
                 "top_menu": true
             },
             "The Hub Pub": {
-                "name": "thehubpub",
+                "name": "/thehubpub",
                 "icon": "faCalendar",
                 "text": "The Hub Pub",
                 "title": "The Hub Pub Dash",

@@ -1,15 +1,13 @@
 import React from 'react'
 // import { InfoSection } from './common'
 // import { MerchDash } from '../merch/main'
-import { FoodDash } from '../foodMenu/main'
-import { StyledPageContainer, StyledDashContainer } from './styles/containers'
+import { StyledPageContainer } from './styles/containers'
 import { StyledFooter } from './styles/footer'
 import { LinkButton } from '../elements/buttons/main'
 const CONFIG = require('./config.json')
 const COLORS = CONFIG.colors
 
 export const DashContainer = (props) => {
-    console.log('Making DASHCONTAINER')
     return (
         <StyledPageContainer
             margin={props.margin || "6rem auto auto auto"}
@@ -21,7 +19,6 @@ export const DashContainer = (props) => {
 }
 
 export const HomeDash = () => {
-    console.log('Making HomeDASH')
     return (
         <DashContainer>
             <LinkButton

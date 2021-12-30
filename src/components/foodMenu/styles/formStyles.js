@@ -61,7 +61,7 @@ export const StyledFormContainer = styled.div`
     flex-flow: column wrap;
     margin: auto;
     width: 100%;
-    animation-duration: .1s;
+    animation-duration: .5s;
     animation-name: slidein;
     .alignButtonsHorizontally {
         display: flex;
@@ -69,11 +69,11 @@ export const StyledFormContainer = styled.div`
     }
     @keyframes slidein {
         from {
-            margin-left: 100%;
+            margin-top: 100%;
             width: 300%;
         }
         to {
-            margin-left: 0%;
+            margin-top: 0%;
             width: 100%;
         }
     }
