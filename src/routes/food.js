@@ -33,32 +33,9 @@ router.get('/dashboard', function (req, res, next) {
   }
 })
 
-// router.delete('/items/:location', function (req, res, next) {
-//   const location = req.params['location']
-//   const apiUrl = `${PROTOCOL}://${HOST}/v3/menu/products?location=${location}&sku=${req.body['sku']}`
-//   console.log(`ITEMS | DELETE | Location: ${location} | Path: ${req.path}`)
-//   const options = {
-//     url: apiUrl,
-//     method: 'delete'
-//   }
-//   makeRequest(options, res)
-// })
-
-// router.put('/items/:location', function (req, res, next) {
-//   const location = req.params['location']
-//   const apiUrl = `${PROTOCOL}://${HOST}/v3/menu/products?location=${location}`
-//   console.log(`ITEMS | PUT | Body: ${req.body} | Path: ${req.path}`)
-//   const options = {
-//     url: apiUrl,
-//     method: 'put',
-//     data: req.body
-//   }
-//   makeRequest(options, res)
-// })
-
 router.post('/items/:location', function (req, res, next) {
   const location = req.params['location']
-  const apiUrl = `${PROTOCOL}://${HOST}/v3/menu/products?location=${location}`
+  const apiUrl = `${PROTOCOL}://${HOST}/v1/menu/products?location=${location}`
   console.log(`ITEMS | POST | Location: ${location} | Path: ${req.path}`)
   const options = {
     url: apiUrl,
@@ -72,7 +49,7 @@ router.delete('/:table/:location', function (req, res, next) {
   const table = req.params['table']
   const slug = req.params['slug']
   const location = req.params['location']
-  const apiUrl = `${PROTOCOL}://${HOST}/v3/menu/${table}?location=${location}&sku=${req.body['sku']}`
+  const apiUrl = `${PROTOCOL}://${HOST}/v1/menu/${table}?location=${location}&sku=${req.body['sku']}`
   console.log(`CATEGORIES | DELETE | Location: ${location} | Slug: ${slug} | Path: ${req.path} | Sku: ${req.body['sku']}`)
   const options = {
     url: apiUrl,
@@ -84,7 +61,7 @@ router.delete('/:table/:location', function (req, res, next) {
 router.put('/:table/:location', function (req, res, next) {
   const table = req.params['table']
   const location = req.params['location']
-  const apiUrl = `${PROTOCOL}://${HOST}/v3/menu/${table}?location=${location}`
+  const apiUrl = `${PROTOCOL}://${HOST}/v1/menu/${table}?location=${location}`
   console.log(`CATEGORIES | UPDATE | Table: ${table} | Location: ${location} | Path: ${req.path}`)
   const options = {
     url: apiUrl,
@@ -97,7 +74,7 @@ router.put('/:table/:location', function (req, res, next) {
 router.get('/:table/:location', function (req, res, next) {
   const location = req.params['location']
   const table = req.params['table']
-  const apiUrl = `${PROTOCOL}://${HOST}/v3/menu/${table}?location=${location}&with_items=true`
+  const apiUrl = `${PROTOCOL}://${HOST}/v1/menu/${table}?location=${location}&with_items=true`
   console.log(`CATEGORIES | GET | Table: ${table} | Location: ${location} | Path: ${req.path}`)
   const options = {
     url: apiUrl,
@@ -108,7 +85,7 @@ router.get('/:table/:location', function (req, res, next) {
 
 router.post('/categories/:location', function (req, res, next) {
   const location = req.params['location']
-  const apiUrl = `${PROTOCOL}://${HOST}/v3/menu/categories?location=${location}`
+  const apiUrl = `${PROTOCOL}://${HOST}/v1/menu/categories?location=${location}`
   console.log(`CATEGORIES | POST | Location: ${location} | Path: ${req.path}`)
   const options = {
     url: apiUrl,

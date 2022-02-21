@@ -8,9 +8,7 @@ RUN apt-get update  && \
         gcc
 
 FROM build AS install
-ARG square_app_id
 ARG node_env
-ENV SQUARE_APP_ID=${square_app_id}
 ENV NODE_ENV=${node_env}
 ENV WEBPACK_CLI_SKIP_IMPORT_LOCAL=true
 
@@ -26,6 +24,8 @@ RUN npx webpack build \
 
 FROM node:14.17.6-buster-slim
 
+ARG node_env
+ENV NODE_ENV=${node_env}
 ENV TINI_VERSION v0.18.0
 
 COPY ./package* /app/

@@ -84,12 +84,6 @@ export const StyledInfo = styled.div`
         text-decoration: none;
         text-transform: capitalize;
     }
-    article {
-        padding: 2rem 0 0 0;
-        max-width: 50rem;
-        text-transform: none;
-        font-family: gotham-medium;
-    }
     p {
         padding: .5rem 0;
         max-width: 50rem;
